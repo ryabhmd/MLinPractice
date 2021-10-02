@@ -141,3 +141,6 @@ The script `application.py` provides a simple command line interface, where the 
 The script can be invoked as follows:
 ```python -m code.application.application path/to/preprocessing.pickle path/to/feature_extraction.pickle path/to/dimensionality_reduction.pickle path/to/classifier.pickle```
 The four pickle files correspond to the exported versions for the different pipeline steps as created by `run_preprocessing.py`, `extract_features.py`, `reduce_dimensionality.py`, and `run_classifier.py`, respectively, with the `-e` option.
+
+
+
