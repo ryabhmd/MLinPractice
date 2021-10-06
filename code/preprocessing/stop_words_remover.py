@@ -10,7 +10,7 @@ Created on Wed Oct  6 17:59:19 2021
 
 from code.preprocessing.preprocessor import Preprocessor
 from nltk.corpus import stopwords
-from code.util import COLUMN_STOPWORDS_INPUT, 
+import ast
 
 class StopWordsRemover(Preprocessor):
     
@@ -33,9 +33,8 @@ class StopWordsRemover(Preprocessor):
         
         # iterate over tokenized tweet and keep only content words
         for tokenized_tweet in inputs[0]:
-            for token in tokenized_tweet:
-                if token not in stop_words:
-                    filtered_tweet.append(token)
+            tokenized_tweet_list = ast.literal_eval(tokenized_tweet)
+            filtered_tweet = [token for token in tokenized_tweet_list if token not in stop_words]
             col_stopwords_removed.append(filtered_tweet)
             
         return col_stopwords_removed
