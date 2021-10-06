@@ -130,3 +130,6 @@ dmypy.json
 
 # exclude /data directory entirely
 /data/
+/code/classification/.DS_Store
+/code/feature_extraction/.DS_Store
+/code/preprocessing/.DS_Store
