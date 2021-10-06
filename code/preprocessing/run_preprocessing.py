@@ -13,7 +13,7 @@ import pandas as pd
 from sklearn.pipeline import make_pipeline
 from code.preprocessing.punctuation_remover import PunctuationRemover
 from code.preprocessing.tokenizer import Tokenizer
-from code.util import COLUMN_TWEET, SUFFIX_TOKENIZED
+from code.util import COLUMN_TWEET, SUFFIX_TOKENIZED, COLUMN_STOPWORDS_INPUT, SUFFIX_STOPWORDS
 
 
 # setting up CLI
@@ -23,6 +23,8 @@ parser.add_argument("output_file", help = "path to the output csv file")
 parser.add_argument("-p", "--punctuation", action = "store_true", help = "remove punctuation")
 parser.add_argument("-t", "--tokenize", action = "store_true", help = "tokenize given column into individual words")
 parser.add_argument("--tokenize_input", help = "input column to tokenize", default = COLUMN_TWEET)
+parser.add_argument("-s", "--stopwords", action = "store_true", help = "remove stopwords from a given column")
+parser.add_argument("--stopwords_input", help = "input column to remove stopwords from", default = COLUMN_STOPWORDS_INPUT)
 parser.add_argument("-e", "--export_file", help = "create a pipeline and export to the given location", default = None)
 args = parser.parse_args()
 
@@ -37,6 +39,9 @@ if args.punctuation:
     
 if args.tokenize:
     preprocessors.append(Tokenizer(args.tokenize_input, args.tokenize_input + SUFFIX_TOKENIZED))
+    
+if args.stopwords:
+    preprocessors.append(Tokenizer(args.stopwords_input, args.stopwords_input + SUFFIX_STOPWORDS))
 
 # call all preprocessing steps
 for preprocessor in preprocessors:

@@ -59,7 +59,10 @@ Here, `input.csv` is a csv file (ideally the output of `create_labels.py`), whil
 The preprocessing steps to take can be configured with the following flags:
 - `-p` or `--punctuation`: A new column "tweet_no_punctuation" is created, where all punctuation is removed from the original tweet. (See `code/preprocessing/punctuation_remover.py` for more details)
 - '-t' or '--tokenize': apply tokenization to text using nltk word tokenizer
-- '--tokenize_input': determines the column name from a dataframe which should be used as input for tokenizing. Default is 'tweet'. 
+- '--tokenize_input': determines the column name from a dataframe which should be used as input for tokenizing. Default is 'tweet_no_punctuation'.
+- '-s' or '--stopwprds': remove stopwords using nltk common stop words of English
+- '--stopwords_input': determines the column name from a dataframe which should be used as input for removal of stopwords. Default is 'tweet_no_punctuation_tokenized'. 
+
 
 Moreover, the script accepts the following optional parameters:
 - `-e` or `--export` gives the path to a pickle file where an sklearn pipeline of the different preprocessing steps will be stored for later usage.
