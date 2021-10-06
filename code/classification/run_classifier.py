@@ -10,7 +10,7 @@ Created on Wed Sep 29 14:23:48 2021
 
 import argparse, pickle
 from sklearn.dummy import DummyClassifier
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, cohen_kappa_score
 
 # setting up CLI
 parser = argparse.ArgumentParser(description = "Classifier")
@@ -19,7 +19,11 @@ parser.add_argument("-s", '--seed', type = int, help = "seed for the random numb
 parser.add_argument("-e", "--export_file", help = "export the trained classifier to the given location", default = None)
 parser.add_argument("-i", "--import_file", help = "import a trained classifier from the given location", default = None)
 parser.add_argument("-m", "--majority", action = "store_true", help = "majority class classifier")
+parser.add_argument("-f", "--frequency", action = "store_true", help = "label frequency class classifier")
 parser.add_argument("-a", "--accuracy", action = "store_true", help = "evaluate using accuracy")
+parser.add_argument("-c", "--classification", action = "store_true", help = "show classification report")
+parser.add_argument("-n", "--confusion", action = "store_true", help = "show confusion matrix")
+parser.add_argument("-k", "--kappa", action = "store_true", help = "evaluate using cohen's kappa score")
 args = parser.parse_args()
 
 # load data
@@ -38,6 +42,13 @@ else:   # manually set up a classifier
         print("    majority vote classifier")
         classifier = DummyClassifier(strategy = "most_frequent", random_state = args.seed)
         classifier.fit(data["features"], data["labels"])
+        
+    elif args.frequency:
+        # label frequency vote classifier
+        print("    label frequency vote classifier")
+        classifier = DummyClassifier(strategy = "stratified", random_state = args.seed)
+        classifier.fit(data["features"], data["labels"])
+        
 
 # now classify the given data
 prediction = classifier.predict(data["features"])
@@ -46,6 +57,13 @@ prediction = classifier.predict(data["features"])
 evaluation_metrics = []
 if args.accuracy:
     evaluation_metrics.append(("accuracy", accuracy_score))
+if args.classification:
+    evaluation_metrics.append(("classification report", classification_report))
+if args.confusion:
+    evaluation_metrics.append(("confusion matrix", confusion_matrix))
+if args.kappa:
+    evaluation_metrics.append(("Cohen's Kappa score", cohen_kappa_score))
+
 
 # compute and print them
 for metric_name, metric in evaluation_metrics:

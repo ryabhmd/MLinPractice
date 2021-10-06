@@ -1,4 +1,5 @@
-# ML in Practice  
+# ML in Practice
+# ML in Practice, testing push command
 Source code for the Seminar "Machine Learning in Practice", taught at Osnabrück University in the winter term 2021/2022.
 
 As data source, we use the "Data Science Tweets 2010-2021" data set (version 3) by Ruchi Bhatia from [Kaggle](https://www.kaggle.com/ruchi798/data-science-tweets). The goal of our example project is to predict which tweets will go viral, i.e., receive many likes and retweets.
@@ -121,10 +122,16 @@ Here, `input.pickle` is a pickle file of the respective data subset, produced by
 
 By default, this data is used to train a classifier, which is specified by one of the following optional arguments:
 - `-m` or `--majority`: Majority vote classifier that always predicts the majority class.
+Another optional argument that can be specified is frequency, which uses label frequency to train a classifier:
+- `-f` or `--frequency`: Label Frequency classifier that always predicts label frequency in the data.
 
 The classifier is then evaluated, using the evaluation metrics as specified through the following optional arguments:
 - `-a`or `--accuracy`: Classification accurracy (i.e., percentage of correctly classified examples).
+- `-k`or `--kappa`: Cohen's Kappa evaluation (i.e, taking into account the possibility of the agreement occuring by chance).
 
+There are two additional optional arguments which can be used to produce a summary of evaluation metrics:
+- `-c`or `--classification`: prints out a report of the main classification metrics.
+- `-n`or `--confusion`: prints out the confusion matrix of the classifier.
 
 Moreover, the script support importing and exporting trained classifiers with the following optional arguments:
 - `-i` or `--import_file`: Load a trained classifier from the given pickle file. Ignore all parameters that configure the classifier to use and don't retrain the classifier.
