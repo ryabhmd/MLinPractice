@@ -14,7 +14,8 @@ from sklearn.pipeline import make_pipeline
 from code.preprocessing.punctuation_remover import PunctuationRemover
 from code.preprocessing.tokenizer import Tokenizer
 from code.preprocessing.stop_words_remover import StopWordsRemover
-from code.util import COLUMN_TWEET, SUFFIX_TOKENIZED, COLUMN_STOPWORDS_INPUT, SUFFIX_STOPWORDS
+from code.preprocessing.lemmatizater import Lemmatizer
+from code.util import COLUMN_TWEET, SUFFIX_TOKENIZED, COLUMN_STOPWORDS_INPUT, SUFFIX_STOPWORDS, COLUMN_LEMMATIZE_INPUT, SUFFIX_LEMMATIZED
 
 
 # setting up CLI
@@ -26,6 +27,8 @@ parser.add_argument("-t", "--tokenize", action = "store_true", help = "tokenize 
 parser.add_argument("--tokenize_input", help = "input column to tokenize", default = COLUMN_TWEET)
 parser.add_argument("-s", "--stopwords", action = "store_true", help = "remove stopwords from a given column")
 parser.add_argument("--stopwords_input", help = "input column to remove stopwords from", default = COLUMN_STOPWORDS_INPUT)
+parser.add_argument("-l", "--lemmatize", action = "store_true", help = "lemmatize token from a given list of tokens")
+parser.add_argument("--lemmatize_input", help = "input column to lemmatize from", default = COLUMN_LEMMATIZE_INPUT)
 parser.add_argument("-e", "--export_file", help = "create a pipeline and export to the given location", default = None)
 args = parser.parse_args()
 
@@ -43,6 +46,9 @@ if args.tokenize:
     
 if args.stopwords:
     preprocessors.append(StopWordsRemover(args.stopwords_input, args.stopwords_input + SUFFIX_STOPWORDS))
+    
+if args.lemmatize:
+    preprocessors.append(Lemmatizer(args.lemmatize_input, args.lemmatize_input + SUFFIX_LEMMATIZED))
 
 # call all preprocessing steps
 for preprocessor in preprocessors:
