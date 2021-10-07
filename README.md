@@ -93,7 +93,7 @@ Here, `input.csv` is the respective training, validation, or test set file creat
 
 The features to be extracted can be configured with the following optional parameters:
 - `-c` or `--char_length`: Count the number of characters in the "tweet" column of the data frame. (see code/feature_extraction/character_length.py)
-- `-s` or `--sentiment_analysis`: Return the sentiment score of a tweet accoring to the compound score of nltk's Sentiment Analyzer; the score is on a range from -1 (very negative) to +1 (very positive). (see code/feature_extraction/sentiment_analysis.py)
+- `-s` or `--sentiment_analysis`: Return the sentiment score of a tweet accoring to the compound score of nltk's Sentiment Analyzer; the score is on a range from -1 (very negative) to +1 (very positive). To use this run `nltk.download('vader_lexicon')` to download sentiment lexicon.
 - `-s` or `--sentiment_input`: select the input column from which to take the text for computing the sentiment analysis score. Default is 'tweet'.
 
 Moreover, the script support importing and exporting fitted feature extractors with the following optional arguments:

@@ -27,8 +27,6 @@ class LemmatizerTest(unittest.TestCase):
         
     #lemmatizer takes list of tokens as input, so all tests assume that tokenizer works and returns a correct list.
     def test_single_sentence(self):
-        #input_text added only to clarify what the original sentence is
-        input_text = "The laughs you two heard were triggered by memories of his own high flying moist moisture moisturize moisturizing"
         input_tokens = ['The', 'laughs', 'you', 'two', 'heard', 'were', 'triggered', 'by', 'memories', 'of', 'his', 'flying', 'moist', 'moisture', 'moisturize', 'moisturizing']
         output_tokens = ['the', 'laugh', 'you', 'two', 'heard', 'were', 'triggered', 'by', 'memory', 'of', 'his', 'flying', 'moist', 'moisture', 'moisturize', 'moisturizing']
         

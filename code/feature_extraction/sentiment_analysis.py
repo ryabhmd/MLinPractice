@@ -7,11 +7,8 @@ Created on Thu Oct  7 10:40:58 2021
 
 @author: rayaabuahmad
 """
-
+# to run code one should run "nltk.download('vader_lexicon')" to download sentiment lexicon
 from code.feature_extraction.feature_extractor import FeatureExtractor
-import nltk        
-# download sentiment lexicon
-nltk.download('vader_lexicon')
 from nltk.sentiment import SentimentIntensityAnalyzer
 import numpy as np
 
