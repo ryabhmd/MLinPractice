@@ -58,12 +58,12 @@ The script `run_preprocessing.py` is used to run various preprocessing steps on 
 Here, `input.csv` is a csv file (ideally the output of `create_labels.py`), while `output.csv` is the csv file where the output will be written.
 The preprocessing steps to take can be configured with the following flags:
 - `-p` or `--punctuation`: A new column "tweet_no_punctuation" is created, where all punctuation is removed from the original tweet. (See `code/preprocessing/punctuation_remover.py` for more details)
-- '-t' or '--tokenize': apply tokenization to text using nltk word tokenizer
-- '--tokenize_input': determines the column name from a dataframe which should be used as input for tokenizing. Default is 'tweet_no_punctuation'.
-- '-s' or '--stopwprds': remove stopwords using nltk common stop words of English
-- '--stopwords_input': determines the column name from a dataframe which should be used as input for removal of stopwords. Default is 'tweet_no_punctuation_tokenized'. 
-- '-l' or '--lemmatize': lemmatize tokens using nltk's WordNet lemmatizer.
-- '--lemmatize_input': determines the column name from a dataframe which should be used as input for lemmatization. Default is 'tweet_no_punctuation_tokenized_no_stopwords'. 
+- `-t` or `--tokenize`: apply tokenization to text using nltk word tokenizer
+- `--tokenize_input`: determines the column name from a dataframe which should be used as input for tokenizing. Default is 'tweet_no_punctuation'.
+- `-s` or `--stopwprds`: remove stopwords using nltk common stop words of English
+- `--stopwords_input`: determines the column name from a dataframe which should be used as input for removal of stopwords. Default is 'tweet_no_punctuation_tokenized'. 
+- `-l` or `--lemmatize`: lemmatize tokens using nltk's WordNet lemmatizer.
+- `--lemmatize_input`: determines the column name from a dataframe which should be used as input for lemmatization. Default is 'tweet_no_punctuation_tokenized_no_stopwords'. 
 
 
 Moreover, the script accepts the following optional parameters:
@@ -135,12 +135,12 @@ Another optional argument that can be specified is frequency, which uses label f
 - `-f` or `--frequency`: Label Frequency classifier that always predicts label frequency in the data.
 
 The classifier is then evaluated, using the evaluation metrics as specified through the following optional arguments:
-- `-a`or `--accuracy`: Classification accurracy (i.e., percentage of correctly classified examples).
-- `-k`or `--kappa`: Cohen's Kappa evaluation (i.e, taking into account the possibility of the agreement occuring by chance).
+- `-a` or `--accuracy`: Classification accurracy (i.e., percentage of correctly classified examples).
+- `-k` or `--kappa`: Cohen's Kappa evaluation (i.e, taking into account the possibility of the agreement occuring by chance).
 
 There are two additional optional arguments which can be used to produce a summary of evaluation metrics:
-- `-c`or `--classification`: prints out a report of the main classification metrics.
-- `-n`or `--confusion`: prints out the confusion matrix of the classifier.
+- `-c` or `--classification`: prints out a report of the main classification metrics.
+- `-n` or `--confusion`: prints out the confusion matrix of the classifier.
 
 Moreover, the script support importing and exporting trained classifiers with the following optional arguments:
 - `-i` or `--import_file`: Load a trained classifier from the given pickle file. Ignore all parameters that configure the classifier to use and don't retrain the classifier.
