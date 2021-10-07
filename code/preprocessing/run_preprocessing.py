@@ -13,6 +13,7 @@ import pandas as pd
 from sklearn.pipeline import make_pipeline
 from code.preprocessing.punctuation_remover import PunctuationRemover
 from code.preprocessing.tokenizer import Tokenizer
+from code.preprocessing.stop_words_remover import StopWordsRemover
 from code.util import COLUMN_TWEET, SUFFIX_TOKENIZED, COLUMN_STOPWORDS_INPUT, SUFFIX_STOPWORDS
 
 
@@ -41,7 +42,7 @@ if args.tokenize:
     preprocessors.append(Tokenizer(args.tokenize_input, args.tokenize_input + SUFFIX_TOKENIZED))
     
 if args.stopwords:
-    preprocessors.append(Tokenizer(args.stopwords_input, args.stopwords_input + SUFFIX_STOPWORDS))
+    preprocessors.append(StopWordsRemover(args.stopwords_input, args.stopwords_input + SUFFIX_STOPWORDS))
 
 # call all preprocessing steps
 for preprocessor in preprocessors:
