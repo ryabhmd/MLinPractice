@@ -11,6 +11,7 @@ Created on Wed Sep 29 11:00:24 2021
 import argparse, csv, pickle
 import pandas as pd
 import numpy as np
+from code.feature_extraction.sentiment_analysis import SentimentAnalyzer
 from code.feature_extraction.character_length import CharacterLength
 from code.feature_extraction.feature_collector import FeatureCollector
 from code.util import COLUMN_TWEET, COLUMN_LABEL
@@ -23,6 +24,8 @@ parser.add_argument("output_file", help = "path to the output pickle file")
 parser.add_argument("-e", "--export_file", help = "create a pipeline and export to the given location", default = None)
 parser.add_argument("-i", "--import_file", help = "import an existing pipeline from the given location", default = None)
 parser.add_argument("-c", "--char_length", action = "store_true", help = "compute the number of characters in the tweet")
+parser.add_argument("-s", "--sentiment_analysis", action = "store_true", help = "compute the sentiment score of the tweet")
+parser.add_argument("--sentiment_input", help = "input column to return sentiment analysis score from", default = COLUMN_TWEET)
 args = parser.parse_args()
 
 # load data
@@ -40,6 +43,9 @@ else:    # need to create FeatureCollector manually
     if args.char_length:
         # character length of original tweet (without any changes)
         features.append(CharacterLength(COLUMN_TWEET))
+    if args.sentiment_analysis:
+        # sentiment analysis nltk VADER compund score of original tweet (without any changes)
+        features.append(SentimentAnalyzer(COLUMN_TWEET))
     
     # create overall FeatureCollector
     feature_collector = FeatureCollector(features)
@@ -61,6 +67,7 @@ results = {"features": feature_array, "labels": label_array,
            "feature_names": feature_collector.get_feature_names()}
 with open(args.output_file, 'wb') as f_out:
     pickle.dump(results, f_out)
+
 
 # export the FeatureCollector as pickle file if desired by user
 if args.export_file is not None:

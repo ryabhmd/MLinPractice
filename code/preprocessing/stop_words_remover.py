@@ -16,7 +16,7 @@ class StopWordsRemover(Preprocessor):
     
     # constructor
     def __init__(self, input_col, output_col):
-        # input column "tweet", new output column
+        # input column "tweet_no_punctuation_tokenized", new output column
         super().__init__([input_col], output_col)
         
     # get preprocessed column based on data frame
