@@ -57,12 +57,14 @@ The script `run_preprocessing.py` is used to run various preprocessing steps on 
 Here, `input.csv` is a csv file (ideally the output of `create_labels.py`), while `output.csv` is the csv file where the output will be written.
 The preprocessing steps to take can be configured with the following flags:
 - `-p` or `--punctuation`: A new column "tweet_no_punctuation" is created, where all punctuation is removed from the original tweet. (See `code/preprocessing/punctuation_remover.py` for more details)
+- `-m` or `--emoji_splitter`: adds a space before and after each emoji in a tweet.
+- `--emoji_input`: determines the column name from a dataframe which should be used as input for splitting emojis. Default is 'tweet_no_punctuation'.
 - `-t` or `--tokenize`: apply tokenization to text using nltk word tokenizer
-- `--tokenize_input`: determines the column name from a dataframe which should be used as input for tokenizing. Default is 'tweet_no_punctuation'.
+- `--tokenize_input`: determines the column name from a dataframe which should be used as input for tokenizing. Default is 'tweet_no_punctuation_emojis'.
 - `-s` or `--stopwprds`: remove stopwords using nltk common stop words of English
-- `--stopwords_input`: determines the column name from a dataframe which should be used as input for removal of stopwords. Default is 'tweet_no_punctuation_tokenized'. 
+- `--stopwords_input`: determines the column name from a dataframe which should be used as input for removal of stopwords. Default is 'tweet_no_punctuation_emojis_tokenized'. 
 - `-l` or `--lemmatize`: lemmatize tokens using nltk's WordNet lemmatizer.
-- `--lemmatize_input`: determines the column name from a dataframe which should be used as input for lemmatization. Default is 'tweet_no_punctuation_tokenized_no_stopwords'. 
+- `--lemmatize_input`: determines the column name from a dataframe which should be used as input for lemmatization. Default is 'tweet_no_punctuation_emojis_tokenized_no_stopwords'. 
 
 
 Moreover, the script accepts the following optional parameters:
