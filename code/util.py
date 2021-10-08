@@ -16,10 +16,13 @@ COLUMN_RETWEETS = "retweets_count"
 # column names of novel columns for preprocessing
 COLUMN_LABEL = "label"
 COLUMN_PUNCTUATION = "tweet_no_punctuation"
-COLUMN_STOPWORDS_INPUT = "tweet_no_punctuation_tokenized"
-COLUMN_LEMMATIZE_INPUT = "tweet_no_punctuation_tokenized_no_stopwords"
+COLUMN_EMOJIS_INPUT = "tweet_no_punctuation"
+COLUMN_TOKENIZE_INPUT = "tweet_no_punctuation_emojis"
+COLUMN_STOPWORDS_INPUT = "tweet_no_punctuation_emojis_tokenized"
+COLUMN_LEMMATIZE_INPUT = "tweet_no_punctuation_emojis_tokenized_no_stopwords"
 
 # suffixes to add to columns after preprocessing
+SUFFIX_EMOJIS = "_emojis"
 SUFFIX_TOKENIZED = "_tokenized"
 SUFFIX_STOPWORDS = "_no_stopwords"
 SUFFIX_LEMMATIZED = "_lemmatized"

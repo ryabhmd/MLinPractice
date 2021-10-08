@@ -12,10 +12,11 @@ import argparse, csv, pickle
 import pandas as pd
 from sklearn.pipeline import make_pipeline
 from code.preprocessing.punctuation_remover import PunctuationRemover
+from code.preprocessing.emoji_splitter import EmojiSplitter
 from code.preprocessing.tokenizer import Tokenizer
 from code.preprocessing.stop_words_remover import StopWordsRemover
 from code.preprocessing.lemmatizer import Lemmatizer
-from code.util import COLUMN_TWEET, SUFFIX_TOKENIZED, COLUMN_STOPWORDS_INPUT, SUFFIX_STOPWORDS, COLUMN_LEMMATIZE_INPUT, SUFFIX_LEMMATIZED
+from code.util import COLUMN_EMOJIS_INPUT, COLUMN_TOKENIZE_INPUT, SUFFIX_EMOJIS, SUFFIX_TOKENIZED, COLUMN_STOPWORDS_INPUT, SUFFIX_STOPWORDS, COLUMN_LEMMATIZE_INPUT, SUFFIX_LEMMATIZED
 
 
 # setting up CLI
@@ -23,8 +24,10 @@ parser = argparse.ArgumentParser(description = "Various preprocessing steps")
 parser.add_argument("input_file", help = "path to the input csv file")
 parser.add_argument("output_file", help = "path to the output csv file")
 parser.add_argument("-p", "--punctuation", action = "store_true", help = "remove punctuation")
+parser.add_argument("-m", "--emoji_splitter", action = "store_true", help = "add spaces before and after each emoji in a given column of text")
+parser.add_argument("--emoji_input", help = "input column to split emojis from", default = COLUMN_EMOJIS_INPUT)
 parser.add_argument("-t", "--tokenize", action = "store_true", help = "tokenize given column into individual words")
-parser.add_argument("--tokenize_input", help = "input column to tokenize", default = COLUMN_TWEET)
+parser.add_argument("--tokenize_input", help = "input column to tokenize", default = COLUMN_TOKENIZE_INPUT)
 parser.add_argument("-s", "--stopwords", action = "store_true", help = "remove stopwords from a given column")
 parser.add_argument("--stopwords_input", help = "input column to remove stopwords from", default = COLUMN_STOPWORDS_INPUT)
 parser.add_argument("-l", "--lemmatize", action = "store_true", help = "lemmatize token from a given list of tokens")
@@ -40,6 +43,9 @@ preprocessors = []
 
 if args.punctuation:
     preprocessors.append(PunctuationRemover())
+
+if args.emoji_splitter:
+    preprocessors.append(EmojiSplitter(args.emoji_input, args.emoji_input + SUFFIX_EMOJIS))
     
 if args.tokenize:
     preprocessors.append(Tokenizer(args.tokenize_input, args.tokenize_input + SUFFIX_TOKENIZED))
