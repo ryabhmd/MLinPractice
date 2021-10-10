@@ -16,6 +16,7 @@ from code.preprocessing.emoji_splitter import EmojiSplitter
 from code.preprocessing.tokenizer import Tokenizer
 from code.preprocessing.stop_words_remover import StopWordsRemover
 from code.preprocessing.lemmatizer import Lemmatizer
+from code.preprocessing.n_grams import Ngrams
 from code.util import COLUMN_EMOJIS_INPUT, COLUMN_TOKENIZE_INPUT, SUFFIX_EMOJIS, SUFFIX_TOKENIZED, COLUMN_STOPWORDS_INPUT, SUFFIX_STOPWORDS, COLUMN_LEMMATIZE_INPUT, SUFFIX_LEMMATIZED
 
 
@@ -59,9 +60,14 @@ if args.lemmatize:
 # call all preprocessing steps
 for preprocessor in preprocessors:
     df = preprocessor.fit_transform(df)
+    
+triigrams_series = Ngrams("tweet_no_punctuation_emojis_tokenized_no_stopwords_lemmatized", "output").fit_transform(df)
+trigram_100 = triigrams_series[:20]
 
 # store the results
 df.to_csv(args.output_file, index = False, quoting = csv.QUOTE_NONNUMERIC, line_terminator = "\n")
+
+trigram_100.plot.barh(color='blue', width=.9, figsize=(12, 8))
 
 # create a pipeline if necessary and store it as pickle file
 if args.export_file is not None:
