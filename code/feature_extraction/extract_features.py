@@ -18,6 +18,7 @@ from code.feature_extraction.url_count import UrlCount
 from code.feature_extraction.mention_count import MentionCount
 from code.feature_extraction.hashtag_count import HashtagCount
 from code.feature_extraction.personal_story import PersonalStory
+from code.feature_extraction.engage_keywords import EngageKeyword
 from code.util import COLUMN_TWEET, COLUMN_LABEL, COLUMN_URL, COLUMN_MENTION, COLUMN_HASHTAG
 
 
@@ -34,6 +35,7 @@ parser.add_argument("-u", "--url_count", action = "store_true", help = "compute 
 parser.add_argument("-m", "--mention_count", action = "store_true", help = "compute the number of mentions in the tweet")
 parser.add_argument("-ht", "--hashtag_count", action = "store_true", help = "compute the number of hashtags in the tweet")
 parser.add_argument("-ps", "--personal_story", action="store_true", help = "check if the tweet contains one of the personal story keywords")
+parser.add_argument("-ek", "--engage_keywords", action="store_true", help = "check if the tweet contains one of the engage keywords")
 args = parser.parse_args()
 
 # load data
@@ -63,7 +65,10 @@ else:    # need to create FeatureCollector manually
         features.append(HashtagCount(COLUMN_HASHTAG))
     if args.personal_story:
         features.append(PersonalStory(COLUMN_TWEET))
-    
+    if args.engage_keywords:
+        features.append(EngageKeyword(COLUMN_TWEET))
+        
+        
     # create overall FeatureCollector
     feature_collector = FeatureCollector(features)
     
