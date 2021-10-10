@@ -29,3 +29,7 @@ SUFFIX_EMOJIS = "_emojis"
 SUFFIX_TOKENIZED = "_tokenized"
 SUFFIX_STOPWORDS = "_no_stopwords"
 SUFFIX_LEMMATIZED = "_lemmatized"
+
+# keywords for feature extraction
+LIST_PERSONAL_STORY_KEYWORDS = ['we','i ','a few years ago','a few days ago']
+LIST_ENGAGEMENT_KEYWORDS = ['please','retweet','help','how to','check out']
