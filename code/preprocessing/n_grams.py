@@ -9,6 +9,7 @@ import nltk
 from nltk.util import bigrams, trigrams
 from code.preprocessing.preprocessor import Preprocessor
 import pandas as pd
+import collections
 
 class Ngrams(Preprocessor):
     
@@ -33,7 +34,7 @@ class Ngrams(Preprocessor):
         flat_grams = [gram for subgram in grams for gram in subgram]
         
         #count frequency of every trigram
-        trigrams_series = pd.Series(flat_grams).value_counts()
-            
-        return trigrams_series
+        ngram_freq = collections.Counter(flat_grams)
+                   
+        return ngram_freq.most_common(10)
     
