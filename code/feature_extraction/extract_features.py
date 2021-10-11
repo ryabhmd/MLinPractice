@@ -14,7 +14,10 @@ import numpy as np
 from code.feature_extraction.sentiment_analysis import SentimentAnalyzer
 from code.feature_extraction.character_length import CharacterLength
 from code.feature_extraction.feature_collector import FeatureCollector
-from code.util import COLUMN_TWEET, COLUMN_LABEL
+from code.feature_extraction.url_count import UrlCount
+from code.feature_extraction.mention_count import MentionCount
+from code.feature_extraction.hashtag_count import HashtagCount
+from code.util import COLUMN_TWEET, COLUMN_LABEL, COLUMN_URL, COLUMN_MENTION, COLUMN_HASHTAG
 
 
 # setting up CLI
@@ -26,6 +29,9 @@ parser.add_argument("-i", "--import_file", help = "import an existing pipeline f
 parser.add_argument("-c", "--char_length", action = "store_true", help = "compute the number of characters in the tweet")
 parser.add_argument("-s", "--sentiment_analysis", action = "store_true", help = "compute the sentiment score of the tweet")
 parser.add_argument("--sentiment_input", help = "input column to return sentiment analysis score from", default = COLUMN_TWEET)
+parser.add_argument("-u", "--url_count", action = "store_true", help = "compute the number of URLs in the tweet")
+parser.add_argument("-m", "--mention_count", action = "store_true", help = "compute the number of mentions in the tweet")
+parser.add_argument("-ht", "--hashtag_count", action = "store_true", help = "compute the number of hashtags in the tweet")
 args = parser.parse_args()
 
 # load data
@@ -46,6 +52,13 @@ else:    # need to create FeatureCollector manually
     if args.sentiment_analysis:
         # sentiment analysis nltk VADER compund score of original tweet (without any changes)
         features.append(SentimentAnalyzer(COLUMN_TWEET))
+    if args.url_count:
+        # URL array length of URL column
+        features.append(UrlCount(COLUMN_URL))
+    if args.mention_count:
+        features.append(MentionCount(COLUMN_MENTION))
+    if args.hashtag_count:
+        features.append(HashtagCount(COLUMN_HASHTAG))
     
     # create overall FeatureCollector
     feature_collector = FeatureCollector(features)

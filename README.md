@@ -58,7 +58,7 @@ Here, `input.csv` is a csv file (ideally the output of `create_labels.py`), whil
 The preprocessing steps to take can be configured with the following flags:
 - `-p` or `--punctuation`: A new column "tweet_no_punctuation" is created, where all punctuation is removed from the original tweet. (See `code/preprocessing/punctuation_remover.py` for more details)
 - `-m` or `--emoji_splitter`: adds a space before and after each emoji in a tweet.
-- `--emoji_input`: determines the column name from a dataframe which should be used as input for splitting emojis. Default is 'tweet_no_punctuation'.
+- `--emoji_input`: determines the column name from a dataframe which should be used as input for splitting emojis. Default is 'tweet_no_punctuation'. install the package using 'pip install emoji'
 - `-t` or `--tokenize`: apply tokenization to text using nltk word tokenizer
 - `--tokenize_input`: determines the column name from a dataframe which should be used as input for tokenizing. Default is 'tweet_no_punctuation_emojis'.
 - `-s` or `--stopwprds`: remove stopwords using nltk common stop words of English
