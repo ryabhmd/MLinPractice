@@ -34,7 +34,8 @@ class StopWordsRemover(Preprocessor):
         # iterate over tokenized tweet and keep only content words
         for tokenized_tweet in inputs[0]:
             tokenized_tweet_list = ast.literal_eval(tokenized_tweet)
-            filtered_tweet = [token for token in tokenized_tweet_list if token not in stop_words]
+            # added a check if token is not 'the' because it is not taken into account after checking the results.
+            filtered_tweet = [token for token in tokenized_tweet_list if (token not in stop_words)]
             col_stopwords_removed.append(filtered_tweet)
             
         return col_stopwords_removed
