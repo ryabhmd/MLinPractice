@@ -18,7 +18,7 @@ from code.preprocessing.tokenizer import Tokenizer
 from code.preprocessing.stop_words_remover import StopWordsRemover
 from code.preprocessing.lemmatizer import Lemmatizer
 from code.preprocessing.n_grams import Ngrams
-from code.util import COLUMN_TWEET, COLUMN_PUNCTUATION_INPUT, COLUMN_EMOJIS_INPUT, COLUMN_TOKENIZE_INPUT, SUFFIX_HASHTAGS_MENTIONS, SUFFIX_PUNCTUATUIN, SUFFIX_EMOJIS, SUFFIX_TOKENIZED, COLUMN_STOPWORDS_INPUT, SUFFIX_STOPWORDS, COLUMN_LEMMATIZE_INPUT, SUFFIX_LEMMATIZED
+from code.util import COLUMN_PUNCTUATION_INPUT, COLUMN_EMOJIS_INPUT, COLUMN_TOKENIZE_INPUT, SUFFIX_PUNCTUATUIN, SUFFIX_EMOJIS, SUFFIX_TOKENIZED, COLUMN_STOPWORDS_INPUT, SUFFIX_STOPWORDS, COLUMN_LEMMATIZE_INPUT, SUFFIX_LEMMATIZED
 
 
 # setting up CLI
@@ -64,10 +64,9 @@ if args.lemmatize:
 
 # call all preprocessing steps
 for preprocessor in preprocessors:
-    print(df.columns)
     df = preprocessor.fit_transform(df)
     
-trigrams = Ngrams("tweet_no_hashtags_mentions_no_punctuation_emojis_tokenized_no_stopwords_lemmatized", "output").fit_transform(df)
+bigrams = Ngrams("tweet_no_hashtags_mentions_no_punctuation_emojis_tokenized_no_stopwords_lemmatized", "output").fit_transform(df)
 
 # store the results
 df.to_csv(args.output_file, index = False, quoting = csv.QUOTE_NONNUMERIC, line_terminator = "\n")

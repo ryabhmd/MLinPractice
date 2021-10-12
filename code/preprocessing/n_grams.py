@@ -5,13 +5,10 @@ Created on Sat Oct  9 09:52:42 2021
 
 @author: rayaabuahmad
 """
-import nltk
 from nltk.util import bigrams
 from code.preprocessing.preprocessor import Preprocessor
-import pandas as pd
 import collections
 import matplotlib.pyplot as plt
-import numpy as np
 
 class Ngrams(Preprocessor):
     

@@ -35,10 +35,6 @@ class HashtagMentionRemoverTest(unittest.TestCase):
         input_df[COLUMN_TWEET] = input_text
          
         result = self.hashtags_mentions_remover.fit_transform(input_df)
-        print(result.columns)
-        print(result[COLUMN_PUNCTUATION_INPUT][0])
-        print(type(result[COLUMN_PUNCTUATION_INPUT][0]))
-        print(type(result[COLUMN_PUNCTUATION_INPUT]))
         self.assertEqual(result[COLUMN_PUNCTUATION_INPUT][0], output_text[0])
        
 if __name__ == '__main__':
