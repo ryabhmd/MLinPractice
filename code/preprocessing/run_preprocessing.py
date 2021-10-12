@@ -11,20 +11,24 @@ Created on Tue Sep 28 16:43:18 2021
 import argparse, csv, pickle
 import pandas as pd
 from sklearn.pipeline import make_pipeline
+from code.preprocessing.hashtags_mentions_remover import HashtagMentionRemover
 from code.preprocessing.punctuation_remover import PunctuationRemover
 from code.preprocessing.emoji_splitter import EmojiSplitter
 from code.preprocessing.tokenizer import Tokenizer
 from code.preprocessing.stop_words_remover import StopWordsRemover
 from code.preprocessing.lemmatizer import Lemmatizer
 from code.preprocessing.n_grams import Ngrams
-from code.util import COLUMN_EMOJIS_INPUT, COLUMN_TOKENIZE_INPUT, SUFFIX_EMOJIS, SUFFIX_TOKENIZED, COLUMN_STOPWORDS_INPUT, SUFFIX_STOPWORDS, COLUMN_LEMMATIZE_INPUT, SUFFIX_LEMMATIZED
+from code.util import COLUMN_TWEET, COLUMN_PUNCTUATION_INPUT, COLUMN_EMOJIS_INPUT, COLUMN_TOKENIZE_INPUT, SUFFIX_HASHTAGS_MENTIONS, SUFFIX_PUNCTUATUIN, SUFFIX_EMOJIS, SUFFIX_TOKENIZED, COLUMN_STOPWORDS_INPUT, SUFFIX_STOPWORDS, COLUMN_LEMMATIZE_INPUT, SUFFIX_LEMMATIZED
 
 
 # setting up CLI
 parser = argparse.ArgumentParser(description = "Various preprocessing steps")
 parser.add_argument("input_file", help = "path to the input csv file")
 parser.add_argument("output_file", help = "path to the output csv file")
+parser.add_argument("--hashtags_mentions", action = "store_true", help = "remove hashtags and mentions")
+parser.add_argument("--hashtags_mentions_input", help = "input column to remove hashtags and mentions from", default=COLUMN_TWEET)
 parser.add_argument("-p", "--punctuation", action = "store_true", help = "remove punctuation")
+parser.add_argument("--punctuation_input", help = "input column to remove punctuation from", default=COLUMN_PUNCTUATION_INPUT)
 parser.add_argument("-m", "--emoji_splitter", action = "store_true", help = "add spaces before and after each emoji in a given column of text")
 parser.add_argument("--emoji_input", help = "input column to split emojis from", default = COLUMN_EMOJIS_INPUT)
 parser.add_argument("-t", "--tokenize", action = "store_true", help = "tokenize given column into individual words")
@@ -42,8 +46,11 @@ df = pd.read_csv(args.input_file, quoting = csv.QUOTE_NONNUMERIC, lineterminator
 # collect all preprocessors
 preprocessors = []
 
+if args.hashtags_mentions:
+    preprocessors.append(HashtagMentionRemover([args.hashtags_mentions_input], args.hashtags_mentions_input +  SUFFIX_HASHTAGS_MENTIONS))
+
 if args.punctuation:
-    preprocessors.append(PunctuationRemover())
+    preprocessors.append(PunctuationRemover([args.punctuation_input], args.punctuation_input +  SUFFIX_PUNCTUATUIN))
 
 if args.emoji_splitter:
     preprocessors.append(EmojiSplitter(args.emoji_input, args.emoji_input + SUFFIX_EMOJIS))
