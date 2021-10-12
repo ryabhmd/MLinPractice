@@ -5,13 +5,10 @@ Created on Sat Oct  9 09:52:42 2021
 
 @author: rayaabuahmad
 """
-import nltk
-from nltk.util import trigrams
+from nltk.util import bigrams
 from code.preprocessing.preprocessor import Preprocessor
-import pandas as pd
 import collections
 import matplotlib.pyplot as plt
-import numpy as np
 
 class Ngrams(Preprocessor):
     
@@ -29,7 +26,7 @@ class Ngrams(Preprocessor):
         #loop over lemmatized tweets and add them into one list
         for lemmatized_tweet in inputs[0]:
             # extract bigrams for each tweet based on the given n
-            apply_ngrams = list(trigrams(lemmatized_tweet))
+            apply_ngrams = list(bigrams(lemmatized_tweet))
             grams.append(apply_ngrams)
          
         #flatten all bigrams to be in one list rather than in a list of lists
@@ -38,8 +35,8 @@ class Ngrams(Preprocessor):
         updated_grams = []
         
         for gram in flat_grams:
-            if not ((gram[0]=='data' and gram[1]=='science') or (gram[1]=='data' and gram[2]=='science') or (gram[0]=='data' and gram[1]=='visualization') or (gram[1]=='data' and gram[2]=='visualization') or (gram[0]=='data' and gram[1]=='analysis') or (gram[1] =='data' and gram[2]=='analysis')):
-                if ("http" not in gram[0]) and ("http" not in gram[1]) and ("http" not in gram[2]):
+            if not ((gram[0]=='data' and gram[1]=='science') or (gram[0]=='data' and gram[1]=='visualization') or (gram[0]=='data' and gram[1]=='analysis')):
+                if ("http" not in gram[0]) and ("http" not in gram[1]):
                     updated_grams.append(gram)
         
         #count frequency of every bigram
