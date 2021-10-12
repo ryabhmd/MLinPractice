@@ -6,7 +6,7 @@ Created on Sat Oct  9 09:52:42 2021
 @author: rayaabuahmad
 """
 import nltk
-from nltk.util import trigrams
+from nltk.util import bigrams
 from code.preprocessing.preprocessor import Preprocessor
 import pandas as pd
 import collections
@@ -29,7 +29,7 @@ class Ngrams(Preprocessor):
         #loop over lemmatized tweets and add them into one list
         for lemmatized_tweet in inputs[0]:
             # extract bigrams for each tweet based on the given n
-            apply_ngrams = list(trigrams(lemmatized_tweet))
+            apply_ngrams = list(bigrams(lemmatized_tweet))
             grams.append(apply_ngrams)
          
         #flatten all bigrams to be in one list rather than in a list of lists
