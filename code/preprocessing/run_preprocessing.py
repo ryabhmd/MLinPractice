@@ -66,7 +66,6 @@ trigrams = Ngrams("tweet_no_punctuation_emojis_tokenized_no_stopwords_lemmatized
 # store the results
 df.to_csv(args.output_file, index = False, quoting = csv.QUOTE_NONNUMERIC, line_terminator = "\n")
 
-trigrams.plot.barh(color='blue', width=.9, figsize=(12, 8))
 
 # create a pipeline if necessary and store it as pickle file
 if args.export_file is not None:

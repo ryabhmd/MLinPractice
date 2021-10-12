@@ -10,7 +10,7 @@ import unittest
 import pandas as pd
 from code.preprocessing.n_grams import Ngrams
 
-class EmojiSplitterTest(unittest.TestCase):
+class NgramsTest(unittest.TestCase):
     
     def setUp(self):
        self.INPUT_COLUMN = "input"

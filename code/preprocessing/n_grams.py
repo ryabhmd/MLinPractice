@@ -6,10 +6,12 @@ Created on Sat Oct  9 09:52:42 2021
 @author: rayaabuahmad
 """
 import nltk
-from nltk.util import bigrams, trigrams
+from nltk.util import trigrams
 from code.preprocessing.preprocessor import Preprocessor
 import pandas as pd
 import collections
+import matplotlib.pyplot as plt
+import numpy as np
 
 class Ngrams(Preprocessor):
     
@@ -26,15 +28,25 @@ class Ngrams(Preprocessor):
         
         #loop over lemmatized tweets and add them into one list
         for lemmatized_tweet in inputs[0]:
-            # extract ngrams for each tweet based on the given n
+            # extract bigrams for each tweet based on the given n
             apply_ngrams = list(trigrams(lemmatized_tweet))
             grams.append(apply_ngrams)
          
-        #flatten all trigrams to be in one list rather than in a list of lists
+        #flatten all bigrams to be in one list rather than in a list of lists
         flat_grams = [gram for subgram in grams for gram in subgram]
         
-        #count frequency of every trigram
+        #count frequency of every bigram
         ngram_freq = collections.Counter(flat_grams)
-                   
-        return ngram_freq.most_common(10)
+        
+        most_freq = ngram_freq.most_common(30)
+        
+        x_bigrams = ["("+",".join(bigram[0])+")" for bigram in most_freq]
+        y_freq = [int(bigram[1]) for bigram in most_freq]
+        
+        
+        plt.barh(x_bigrams, y_freq)
+        plt.show()
+        
+        print(x_bigrams)
+        print(y_freq)
     
