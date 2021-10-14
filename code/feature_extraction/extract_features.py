@@ -17,7 +17,8 @@ from code.feature_extraction.feature_collector import FeatureCollector
 from code.feature_extraction.url_count import UrlCount
 from code.feature_extraction.mention_count import MentionCount
 from code.feature_extraction.hashtag_count import HashtagCount
-from code.util import COLUMN_TWEET, COLUMN_LABEL, COLUMN_URL, COLUMN_MENTION, COLUMN_HASHTAG
+from code.feature_extraction.ner_count import NERCount
+from code.util import COLUMN_TWEET, COLUMN_LABEL, COLUMN_URL, COLUMN_MENTION, COLUMN_HASHTAG, COLUMN_STOPWORDS_INPUT
 
 
 # setting up CLI
@@ -32,6 +33,7 @@ parser.add_argument("--sentiment_input", help = "input column to return sentimen
 parser.add_argument("-u", "--url_count", action = "store_true", help = "compute the number of URLs in the tweet")
 parser.add_argument("-m", "--mention_count", action = "store_true", help = "compute the number of mentions in the tweet")
 parser.add_argument("-ht", "--hashtag_count", action = "store_true", help = "compute the number of hashtags in the tweet")
+parser.add_argument("-n", "--ner_count", action = "store_true", help = "compute the number of named entities in the tweet")
 args = parser.parse_args()
 
 # load data
@@ -59,6 +61,8 @@ else:    # need to create FeatureCollector manually
         features.append(MentionCount(COLUMN_MENTION))
     if args.hashtag_count:
         features.append(HashtagCount(COLUMN_HASHTAG))
+    if args.hashtag_count:
+        features.append(NERCount(COLUMN_STOPWORDS_INPUT))
     
     # create overall FeatureCollector
     feature_collector = FeatureCollector(features)

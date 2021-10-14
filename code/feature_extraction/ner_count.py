@@ -26,7 +26,7 @@ class NERCount(FeatureExtractor):
         #iterate over each tweet in input column
         for tweet in inputs[0]:
             # extract pos and then chunck them 
-            tag = pos_tag(tweet)
+            tag = pos_tag([tweet])
             ne_tree = nltk.ne_chunk(tag)
             
             #entities will have labels in nltk; so count all entities
@@ -37,7 +37,9 @@ class NERCount(FeatureExtractor):
                     count +=1
                 except:
                     count +=0
-        
+                    
+            ne_count.append(count)
+            
         #retun as feature
         result = np.array(ne_count)
         result = result.reshape(-1,1)
