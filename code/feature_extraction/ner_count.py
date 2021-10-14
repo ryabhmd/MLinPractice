@@ -16,7 +16,7 @@ class NERCount(FeatureExtractor):
     
     # constructor, default input_column would be 'tweet_no_hashtags_mentions_no_punctuation_emojis_tokenized'
     def __init__(self, input_column):
-        super().__init__([input_column], "{0}_ne_count".format(input_column))
+        super().__init__([input_column], "ne_count")
         
      # compute the Named Entities count based on the inputs
     def _get_values(self, inputs): 

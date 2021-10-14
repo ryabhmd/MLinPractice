@@ -66,7 +66,8 @@ if args.lemmatize:
 for preprocessor in preprocessors:
     df = preprocessor.fit_transform(df)
     
-bigrams = Ngrams("tweet_no_hashtags_mentions_no_punctuation_emojis_tokenized_no_stopwords_lemmatized", "output").fit_transform(df)
+#save 30 most freq bigrams and pickle the results which will then be used as features
+Ngrams("tweet_no_hashtags_mentions_no_punctuation_emojis_tokenized_no_stopwords_lemmatized", "ouput").fit(df)
 
 # store the results
 df.to_csv(args.output_file, index = False, quoting = csv.QUOTE_NONNUMERIC, line_terminator = "\n")

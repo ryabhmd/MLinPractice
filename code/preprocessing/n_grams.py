@@ -5,10 +5,10 @@ Created on Sat Oct  9 09:52:42 2021
 
 @author: rayaabuahmad
 """
+import pickle
 from nltk.util import bigrams
 from code.preprocessing.preprocessor import Preprocessor
 import collections
-import matplotlib.pyplot as plt
 
 class Ngrams(Preprocessor):
     
@@ -18,7 +18,7 @@ class Ngrams(Preprocessor):
         super().__init__([input_col], output_col)
         
 
-    def _get_values(self, inputs):
+    def _set_variables(self, inputs):
         
         
         grams = []
@@ -44,13 +44,6 @@ class Ngrams(Preprocessor):
         
         most_freq = ngram_freq.most_common(30)
         
-        x_bigrams = ["("+",".join(bigram[0])+")" for bigram in most_freq]
-        y_freq = [int(bigram[1]) for bigram in most_freq]
-        
-        
-        plt.barh(x_bigrams, y_freq)
-        plt.show()
-        
-        print(x_bigrams)
-        print(y_freq)
+        with open("data/preprocessing/bigrams.pickle", 'wb') as f_out:
+             pickle.dump(ngram_freq, f_out)
     
