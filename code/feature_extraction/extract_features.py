@@ -64,23 +64,30 @@ else:    # need to create FeatureCollector manually
         # URL array length of URL column
         features.append(UrlCount(COLUMN_URL))
     if args.mention_count:
+        # count number of mentions
         features.append(MentionCount(COLUMN_MENTION))
     if args.hashtag_count:
+        # count number of hashtags
         features.append(HashtagCount(COLUMN_HASHTAG))
     if args.personal_story:
+        # check whether tweet is a personal story
         features.append(PersonalStory(COLUMN_TWEET))
     if args.engage_keywords:
+        # check whether tweet asks for engagement
         features.append(EngageKeyword(COLUMN_TWEET))
     if args.ner_count:
+        # count number of named entities
         features.append(NERCount(COLUMN_STOPWORDS_INPUT))
-        
+    
     if args.n_grams:
+
         # unpickle the 30 most freq bigrams
         with open("data/preprocessing/bigrams.pickle", 'rb') as f_in:
             freq_bigrams = pickle.load(f_in)
         
         most_freq = freq_bigrams.most_common(30)
         
+        #loop over 30 most frequent bigrams and check whether it exists in each tweet
         for item in most_freq:
             features.append(NgramsFeatures("tweet_no_hashtags_mentions_no_punctuation_emojis_tokenized_no_stopwords_lemmatized", item[0]))
             

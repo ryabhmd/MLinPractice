@@ -19,8 +19,13 @@ class NgramsFeatures(FeatureExtractor):
     #get feature of the input bigram
     def _get_values(self, inputs): 
        
+         #the results array
          results = []
+         
+         #get the specific bigram we are checking by getting the feature name
          bigram = self.get_feature_name()
+         
+         #loop over each lemmatized tweet, and see if the bigram exists in it
          for tweet in inputs[0]:
             
             result = False
@@ -33,7 +38,7 @@ class NgramsFeatures(FeatureExtractor):
             results.append(result)
         
                     
-         #retun as feature
+         #retun results as feature
          results = np.array(results)
          results = results.reshape(-1,1)
          return results
