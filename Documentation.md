@@ -94,7 +94,7 @@ The SentimentIntensityAnalyzer was built and trained on social media posts; so g
 
 - ``tells a personal story``:
 
-- ``contains named entities``:
+- ``named entities count``: Count the number of named entities in each tweets. From looking over the tweets labeled as viral; we saw that a common pattern they had was the inclusion of some famous entities (Company names, Person names, etc.), so we decided to add the number of named entities of each tweet as a feature. We used nltk for extracting this information.
 
 - ``contains freqeunt n-grams``:
 

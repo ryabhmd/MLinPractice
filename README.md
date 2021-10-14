@@ -50,7 +50,7 @@ The script takes the following optional parameters:
 - `-r` or `--retweet_weight` determines the relative weight of the number of retweets a tweet has received. Defaults to 1.
 - `-t` or `--threshold` determines the threshold a data point needs to surpass in order to count as a "viral" tweet. Defaults to 50.
 
-### Classical Preprocessing
+### Preprocessing
 
 The script `run_preprocessing.py` is used to run various preprocessing steps on the raw data, producing additional columns in the csv file. It is executed as follows:
 ```python -m code.preprocessing.run_preprocessing path/to/input.csv path/to/output.csv```
@@ -96,6 +96,10 @@ The features to be extracted can be configured with the following optional param
 - `-c` or `--char_length`: Count the number of characters in the "tweet" column of the data frame. (see code/feature_extraction/character_length.py)
 - `-s` or `--sentiment_analysis`: Return the sentiment score of a tweet accoring to the compound score of nltk's Sentiment Analyzer; the score is on a range from -1 (very negative) to +1 (very positive). To use this run `nltk.download('vader_lexicon')` to download sentiment lexicon.
 - `-s` or `--sentiment_input`: select the input column from which to take the text for computing the sentiment analysis score. Default is 'tweet'.
+- `-u` or `--url_count`: Return the number of URLs found in each tweet.
+- `-m` or `--mentions_count`: Return the number of mentions found in each tweet.
+- `-ht` or `--hashtag_count`: Return the number of hashtags found in each tweet.
+- `-n` or `--ner_count`: Return the number of named entities (using NER) found in each tweet.
 
 Moreover, the script support importing and exporting fitted feature extractors with the following optional arguments:
 - `-i` or `--import_file`: Load a configured and fitted feature extraction from the given pickle file. Ignore all parameters that configure the features to extract.
