@@ -26,9 +26,9 @@ class Lemmatizer(Preprocessor):
         # initialize list to put filtered tweet in
         lemmatized_tweet_col = []
         
-        #loop over tokenized tweets and lemmatize
+        #loop over tokenized tweets and lemmatize; do not include tokens that include the char '—' to reduce noise
         for tokenized_tweet in inputs[0]:
-            lemmatized_tweet = [wordnet_lemmatizer.lemmatize(token.lower()) for token in tokenized_tweet]
+            lemmatized_tweet = [wordnet_lemmatizer.lemmatize(token.lower()) for token in tokenized_tweet if '—' not in token]
             lemmatized_tweet_col.append(lemmatized_tweet)
         
         return lemmatized_tweet_col
