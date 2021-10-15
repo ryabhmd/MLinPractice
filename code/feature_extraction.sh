@@ -8,7 +8,6 @@ echo "  training set"
 python -m code.feature_extraction.extract_features data/preprocessing/split/training.csv data/feature_extraction/training.pickle -e data/feature_extraction/pipeline.pickle --char_length --sentiment_analysis --url_count --mention_count --hashtag_count --personal_story --engage_keywords --ner_count --n_grams
 
 # run feature extraction on validation set and test set (with pre-fit extractors)
->>>>>>> ner-count
 echo "  validation set"
 python -m code.feature_extraction.extract_features data/preprocessing/split/validation.csv data/feature_extraction/validation.pickle -i data/feature_extraction/pipeline.pickle
 echo "  test set"
