@@ -90,9 +90,9 @@ The SentimentIntensityAnalyzer was built and trained on social media posts; so g
 
 - ``tweet length``: The length of a tweet can be a good indicator of how informative it is. In our setting, we are looking at 'scientific twitter', which probably means that people might interact more with longer, or at least medium-sized, tweets.
 
-- ``asks for retweets``: 
+- ``asks for retweets or engagement``: Our intuition is that people might interact more when a user specifically asks for engagement in their tweet. So for each tweet, we checked whether it includes one or more of the following keywords: please, retweet, help, how to, check out.
 
-- ``tells a personal story``:
+- ``tells a personal story``: Our intuition is that people interact more with tweets that include some personal story or anecdote. So for each tweet, we checked whether it includes one or more of the following keywords: I, We, My, Our, A few days ago, A few years ago.
 
 - ``named entities count``: Count the number of named entities in each tweets. From looking over the tweets labeled as viral; we saw that a common pattern they had was the inclusion of some famous entities (Company names, Person names, etc.), so we decided to add the number of named entities of each tweet as a feature. We used nltk for extracting this information.
 
