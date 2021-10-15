@@ -96,7 +96,7 @@ The SentimentIntensityAnalyzer was built and trained on social media posts; so g
 
 - ``named entities count``: Count the number of named entities in each tweets. From looking over the tweets labeled as viral; we saw that a common pattern they had was the inclusion of some famous entities (Company names, Person names, etc.), so we decided to add the number of named entities of each tweet as a feature. We used nltk for extracting this information.
 
-- ``contains freqeunt n-grams``:
+- ``contains freqeunt n-grams``: As explained the n-grams preprocessing step above, we chose to convert the 30 most frequent n-grams to binary features, where for each tweet 'True' appears if the n-gram exists in the tweet and 'False' appears otherwise.
 
 # Dimensionality Reduction
 
