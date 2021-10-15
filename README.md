@@ -102,7 +102,7 @@ The features to be extracted can be configured with the following optional param
 - `--personal_story`: Check whether each tweet includes one or more of the following keywords: I, We, My, Our, A few days ago, A few years ago.
 - `--engage_keywords`: Check whether each tweet includes one or more of the following keywords: please, retweet, help, how to, check out.
 - `-n` or `--ner_count`: Return the number of named entities (using NER) found in each tweet.
-- 
+- `--n_grams`: For each of the 30 most frequent bigrams in the data, return a value of `True` if it exists in a tweet and `False` otherwise.
 
 Moreover, the script support importing and exporting fitted feature extractors with the following optional arguments:
 - `-i` or `--import_file`: Load a configured and fitted feature extraction from the given pickle file. Ignore all parameters that configure the features to extract.
