@@ -100,8 +100,10 @@ The SentimentIntensityAnalyzer was built and trained on social media posts; so g
 
 # Dimensionality Reduction
 
-**Curse Of Dimensionality** 
+**Curse Of Dimensionality**:
 Since we have some features that include integers (tweet length, url count, mentions count, named entities count, etc.), and we have more 38 features for each tweet; we have a large feature space and need to implement dimensionality reduction. 
+
+Since we want (to at least try) to inspect the system after reduction, to understand why the specific features were chosen, we decided to go with Feature Selection rather than Feature Projection, since the first is more interpertable. 
 
 
 # Classification
