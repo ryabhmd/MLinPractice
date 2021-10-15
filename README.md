@@ -98,8 +98,11 @@ The features to be extracted can be configured with the following optional param
 - `-s` or `--sentiment_input`: select the input column from which to take the text for computing the sentiment analysis score. Default is 'tweet'.
 - `-u` or `--url_count`: Return the number of URLs found in each tweet.
 - `-m` or `--mentions_count`: Return the number of mentions found in each tweet.
-- `-ht` or `--hashtag_count`: Return the number of hashtags found in each tweet.
+- `--hashtag_count`: Return the number of hashtags found in each tweet.
+- `--personal_story`: Check whether each tweet includes one or more of the following keywords: I, We, My, Our, A few days ago, A few years ago.
+- `--engage_keywords`: Check whether each tweet includes one or more of the following keywords: please, retweet, help, how to, check out.
 - `-n` or `--ner_count`: Return the number of named entities (using NER) found in each tweet.
+- 
 
 Moreover, the script support importing and exporting fitted feature extractors with the following optional arguments:
 - `-i` or `--import_file`: Load a configured and fitted feature extraction from the given pickle file. Ignore all parameters that configure the features to extract.
