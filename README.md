@@ -20,6 +20,13 @@ conda install -y -q -c conda-forge spyder=5.1.5
 conda install -y -q -c conda-forge pandas=1.1.5
 ```
 
+The following packages/lexicons were also used in our code: 
+
+```
+pip install emoji
+nltk.download('vader_lexicon')
+```
+
 You can double-check that all of these packages have been installed by running `conda list` inside of your virtual environment. The Spyder IDE can be started by typing `~/miniconda/envs/MLinPractice/bin/spyder` in your terminal window (assuming you use miniconda, which is installed right in your home directory).
 
 In order to save some space on your local machine, you can run `conda clean -y -q --all` afterwards to remove any temporary files.
