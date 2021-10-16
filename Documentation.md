@@ -101,10 +101,13 @@ The SentimentIntensityAnalyzer was built and trained on social media posts; so g
 # Dimensionality Reduction
 
 **Curse Of Dimensionality**:
-Since we have some features that include integers (tweet length, url count, mentions count, named entities count, etc.), and we have more 38 features for each tweet; we have a large feature space and need to implement dimensionality reduction. 
+Since we have some features that include integers (tweet length, url count, mentions count, named entities count, etc.), and we have 38 features for each tweet, so we have a large feature space and need to implement dimensionality reduction. 
 
 Since we want (to at least try) to inspect the system after reduction, to understand why the specific features were chosen, we decided to go with Feature Selection rather than Feature Projection, since the first is more interpertable. 
 
+From all Feature Selection approaches, we found the Filter method to be the best, mainly because of not having a risk of overfitting to the overall machine learning process, and because it is computationally cheaper than the other two methods. 
+
+Selecting number of features: **add explanation**
 
 # Classification
 
