@@ -9,7 +9,7 @@ Created on Wed Sep 29 14:23:48 2021
 """
 
 import argparse, pickle
-from sklearn.dummy import DummyClassifier
+#from sklearn.dummy import DummyClassifier
 from sklearn.metrics import accuracy_score, cohen_kappa_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
@@ -67,14 +67,14 @@ else:   # manually set up a classifier
         print("    majority vote classifier")
         log_param("classifier", "majority")
         params = {"classifier": "majority"}
-        classifier = DummyClassifier(strategy = "most_frequent", random_state = args.seed)
+        #classifier = DummyClassifier(strategy = "most_frequent", random_state = args.seed)
         
     elif args.frequency:
         # label frequency classifier
         print("    label frequency classifier")
         log_param("classifier", "frequency")
         params = {"classifier": "frequency"}
-        classifier = DummyClassifier(strategy = "stratified", random_state = args.seed)
+        #classifier = DummyClassifier(strategy = "stratified", random_state = args.seed)
         
     
     #K_Neighbors classifier
