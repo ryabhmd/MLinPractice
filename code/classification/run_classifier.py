@@ -19,7 +19,6 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
-from sklearn import metrics
 from mlflow import log_metric, log_param, set_tracking_uri
 
 # setting up CLI
