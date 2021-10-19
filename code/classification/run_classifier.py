@@ -20,6 +20,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn import metrics
+from mlflow import log_metric, log_param, set_tracking_uri
 
 # setting up CLI
 parser = argparse.ArgumentParser(description = "Classifier")
@@ -45,12 +46,18 @@ args = parser.parse_args()
 with open(args.input_file, 'rb') as f_in:
     data = pickle.load(f_in)
 
+set_tracking_uri(args.log_folder)
+
 if args.import_file is not None:
     # import a pre-trained classifier
     with open(args.import_file, 'rb') as f_in:
         input_dict = pickle.load(f_in)
     
     classifier = input_dict["classifier"]
+    for param, value in input_dict["params"].items():
+        log_param(param, value)
+    
+    log_param("dataset", "validation")
 
 
 else:   # manually set up a classifier
@@ -58,12 +65,14 @@ else:   # manually set up a classifier
     if args.majority:
         # majority vote classifier
         print("    majority vote classifier")
+        log_param("classifier", "majority")
         params = {"classifier": "majority"}
         classifier = DummyClassifier(strategy = "most_frequent", random_state = args.seed)
         
     elif args.frequency:
         # label frequency classifier
         print("    label frequency classifier")
+        log_param("classifier", "frequency")
         params = {"classifier": "frequency"}
         classifier = DummyClassifier(strategy = "stratified", random_state = args.seed)
         
@@ -71,6 +80,8 @@ else:   # manually set up a classifier
     #K_Neighbors classifier
     elif args.knn is not None:
         print("    {0} nearest neighbor classifier".format(args.knn))
+        log_param("classifier", "knn")
+        log_param("k", args.knn)
         params = {"classifier": "knn", "k": args.knn}
         standardizer = StandardScaler()
         knn_classifier = KNeighborsClassifier(args.knn, n_jobs = -1)
@@ -79,12 +90,14 @@ else:   # manually set up a classifier
     #NaiveBayes classifier
     elif args.naive_bayes is not None:
         print (" naive_bayes Classifier")
+        log_param("classifier", "naive_bayes")
         params = {"classifier": "naive_bayes"}
         classifier = GaussianNB()
         
     #LinearRegression classifier
     elif args.logistic_regression is not None:
         print(" logistic_regression classifier")
+        log_param("classifier", "logistic_regression")
         params = {"classifier": "logistic_regression"}
         classifier = LogisticRegression()
         print ("penalty " +classifier.penalty)
@@ -92,6 +105,7 @@ else:   # manually set up a classifier
     #dicision_tree classifier
     elif args.dicision_tree is not None:
         print("dicision_tree classifier")
+        log_param("classifier", "dicision_tree")
         params = {"classifier": "dicision_tree"}
         classifier = DecisionTreeClassifier()
         #print ("leaves count: "+ classifier.ccp_alpha)
@@ -99,18 +113,21 @@ else:   # manually set up a classifier
     #random_forest classifier
     elif args.random_forest is not None:
         print ("random_forest classifier")
+        log_param("classifier", "random_forest")
         params = {"classifier" :"random_forest"}
         classifier = RandomForestClassifier(n_estimators=100)
         
     #svc classifier
     elif args.svc is not None:
         print ("svc classifier")
+        log_param("classifier", "svc")
         params = {"classifier" :"svc"}
         classifier = make_pipeline(StandardScaler(), SVC(gamma='auto'))
         
     #linear_svc classifier
     elif args.linear_svc is not None:
         print ("linear_svc classifier")
+        log_param("classifier", "linear_svc")
         params = {"classifier" :"linear_svc"}
         classifier = SVC(kernel='linear')
         
