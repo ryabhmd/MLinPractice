@@ -9,7 +9,7 @@ Created on Wed Sep 29 14:23:48 2021
 """
 
 import argparse, pickle
-#from sklearn.dummy import DummyClassifier
+from sklearn.dummy import DummyClassifier
 from sklearn.metrics import accuracy_score, cohen_kappa_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
@@ -66,14 +66,14 @@ else:   # manually set up a classifier
         print("    majority vote classifier")
         log_param("classifier", "majority")
         params = {"classifier": "majority"}
-        #classifier = DummyClassifier(strategy = "most_frequent", random_state = args.seed)
+        classifier = DummyClassifier(strategy = "most_frequent", random_state = args.seed)
         
     elif args.frequency:
         # label frequency classifier
         print("    label frequency classifier")
         log_param("classifier", "frequency")
         params = {"classifier": "frequency"}
-        #classifier = DummyClassifier(strategy = "stratified", random_state = args.seed)
+        classifier = DummyClassifier(strategy = "stratified", random_state = args.seed)
         
     
     #K_Neighbors classifier
@@ -133,6 +133,7 @@ else:   # manually set up a classifier
     
     
     classifier.fit(data["features"], data["labels"].ravel())
+    log_param("dataset", "training")
 
 # now classify the given data
 prediction = classifier.predict(data["features"])
@@ -148,9 +149,12 @@ if args.kappa:
 for metric_name, metric in evaluation_metrics:
     metric_value = metric(data["labels"], prediction)
     print("    {0}: {1}".format(metric_name, metric_value))
+    log_metric(metric_name, metric_value)
     
 # export the trained classifier if the user wants us to do so
 if args.export_file is not None:
     output_dict = {"classifier": classifier, "params": params}
     with open(args.export_file, 'wb') as f_out:
         pickle.dump(output_dict, f_out)
+        
+        
