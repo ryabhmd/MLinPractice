@@ -107,10 +107,15 @@ Since we want (to at least try) to inspect the system after reduction, to unders
 
 From all Feature Selection approaches, we found the Filter method to be the best, mainly because of not having a risk of overfitting to the overall machine learning process, and because it is computationally cheaper than the other two methods. 
 
-Selecting number of features: **add explanation**
+Selecting number of features: we tried to do this as simple as possible, only by looking at different accuracy scores and mutual information scores, taking into account a different number of features each time. 
+We see that, 
 
 # Classification
 
+Because this is our first time implementing a machine learning pipeline, we wanted to go with a classification algorithm that we both understand well enough, and that is relatively easy for us to work with. So, we chose to work with the K Nearest Neighbor option. 
+To find out what the best value of K is (i.e., the value that gives a relatively high accuracy and cohen's kappa scores),
+
+ADD EXPLANATION HERE
 
 # Results and Interpretation
 
