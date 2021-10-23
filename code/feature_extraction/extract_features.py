@@ -85,6 +85,7 @@ else:    # need to create FeatureCollector manually
         with open("data/preprocessing/bigrams.pickle", 'rb') as f_in:
             freq_bigrams = pickle.load(f_in)
         
+        #get the 30 most frequent bigrams
         most_freq = freq_bigrams.most_common(30)
         
         #loop over 30 most frequent bigrams and check whether it exists in each tweet

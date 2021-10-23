@@ -12,9 +12,9 @@ from code.feature_extraction.feature_extractor import FeatureExtractor
 # class for extracting the url count as a feature
 class UrlCount(FeatureExtractor):
     
-    # constructor
+    # constructor, deafult col. is urls
     def __init__(self, input_column):
-        super().__init__([input_column], "{0}_count".format(input_column))
+        super().__init__([input_column], "urls_count")
     
     # don't need to fit, so don't overwrite _set_variables()
     
@@ -23,6 +23,7 @@ class UrlCount(FeatureExtractor):
         
         url_list = []
    
+        #loop over input and count number of urls for each tweet
         for url in inputs[0]:
             if url == '[]':
                 url_list.append(0)

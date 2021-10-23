@@ -42,8 +42,8 @@ class Ngrams(Preprocessor):
         #count frequency of every bigram
         ngram_freq = collections.Counter(updated_grams)
         
-        most_freq = ngram_freq.most_common(30)
         
+        #pickle 30 most common bigrams to then be used as features
         with open("data/preprocessing/bigrams.pickle", 'wb') as f_out:
              pickle.dump(ngram_freq, f_out)
     
