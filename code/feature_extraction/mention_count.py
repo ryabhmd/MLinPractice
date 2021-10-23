@@ -27,7 +27,7 @@ class MentionCount(FeatureExtractor):
             if mention == '[]':
                 mention_list.append(0)
             else:
-                mention_list.append(len(mention.split(",")))
+                mention_list.append(len(mention.split("{"))-1)
             
         result = np.array(mention_list)
         result = result.reshape(-1,1)

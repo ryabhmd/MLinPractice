@@ -21,7 +21,7 @@ from code.feature_extraction.personal_story import PersonalStory
 from code.feature_extraction.engage_keywords import EngageKeyword
 from code.feature_extraction.ner_count import NERCount
 from code.feature_extraction.n_grams_features import NgramsFeatures
-from code.util import COLUMN_TWEET, COLUMN_LABEL, COLUMN_URL, COLUMN_MENTION, COLUMN_HASHTAG, COLUMN_STOPWORDS_INPUT
+from code.util import COLUMN_TWEET, COLUMN_LABEL, COLUMN_URL, COLUMN_MENTION, COLUMN_HASHTAG, COLUMN_STOPWORDS_INPUT, LEMMATIZED
 
 
 # setting up CLI
@@ -71,10 +71,10 @@ else:    # need to create FeatureCollector manually
         features.append(HashtagCount(COLUMN_HASHTAG))
     if args.personal_story:
         # check whether tweet is a personal story
-        features.append(PersonalStory(COLUMN_TWEET))
+        features.append(PersonalStory(LEMMATIZED))
     if args.engage_keywords:
         # check whether tweet asks for engagement
-        features.append(EngageKeyword(COLUMN_TWEET))
+        features.append(EngageKeyword(LEMMATIZED))
     if args.ner_count:
         # count number of named entities
         features.append(NERCount(COLUMN_STOPWORDS_INPUT))

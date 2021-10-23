@@ -21,22 +21,22 @@ class PeersonalStoryTest(unittest.TestCase):
    
     #testing words count which are related to a engage_keywords
     def test_exist_engage_keywords_count(self):
-        input_text = "Retweet my tweet please"
+        input_text = "['retweet', 'my', 'tweet', 'please', '!']"
         
         input_df = pd.DataFrame()
         input_df[self.INPUT_COLUMN] = [input_text]
         
         result = self.engage_keywords.fit_transform(input_df)
-        self.assertGreater(result[0], 0)
+        self.assertEqual(result[0], True)
         
     def test_nonexist_engage_keywords_count(self):
-        input_text = "I really love this song! It's amazing!"
+        input_text = "['no', 'keywords', 'here']"
         
         input_df = pd.DataFrame()
         input_df[self.INPUT_COLUMN] = [input_text]
         
         result = self.engage_keywords.fit_transform(input_df)
-        self.assertGreater(result[0], 0)
+        self.assertEqual(result[0], False)
         
     
 if __name__ == '__main__':

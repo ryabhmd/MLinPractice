@@ -133,3 +133,4 @@ dmypy.json
 /code/classification/.DS_Store
 /code/feature_extraction/.DS_Store
 /code/preprocessing/.DS_Store
+/images/.DS_Store
