@@ -108,7 +108,20 @@ Since we want (to at least try) to inspect the system after reduction, to unders
 From all Feature Selection approaches, we found the Filter method to be the best, mainly because of not having a risk of overfitting to the overall machine learning process, and because it is computationally cheaper than the other two methods. 
 
 Selecting number of features: we tried to do this as simple as possible, only by looking at different accuracy scores and mutual information scores, taking into account a different number of features each time. 
-We see that, 
+We monitored this simply by running the pipeline several times and checking whether there are significant changes each time we change the number of features. We started with 8 features, and saw that the results got better by getting to 10 features (accuracy scores did not change much, but MI scores were in general higher). Also, the features that were picked as the 10 best ones made sense to us; these were:
+
+              ['tweet_charlength', 'tweet_sentiment_score', 'urls_count', 'mentions_count', 'hashtags_count', 'tweet_personal_story', ('amp', 'data'),    ('visualization', 'tool'), ('computer', 'science'), ('how', 'data')]
+
+With the following scores: 
+
+                  training set
+                    accuracy: 0.911981790113023
+                    Cohen_kappa: 0.1745894733900768
+                  validation set
+                    accuracy: 0.9035191508062608
+                     Cohen_kappa: 0.08933709391264122
+
+When trying 11 features, we see that the accuracy does not change, neither do the MI scores; which is why we decided to stick with the 10 best features. 
 
 # Classification
 
