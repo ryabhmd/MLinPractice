@@ -3,7 +3,7 @@
 mkdir -p data/classification
 
 # specify hyperparameter values
-values_of_k=("1 2 3 4 5 6 7 8 9 10")
+values_of_k=("1 2 3 4 5 6 7 8 9 10") 
 
 
 # different execution modes
