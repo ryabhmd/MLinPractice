@@ -12,9 +12,9 @@ from code.feature_extraction.feature_extractor import FeatureExtractor
 # class for extracting the hashtag count as a feature
 class HashtagCount(FeatureExtractor):
     
-    # constructor
+    # constructor, default col. is hashtags
     def __init__(self, input_column):
-        super().__init__([input_column], "{0}_count".format(input_column))
+        super().__init__([input_column], "hashtags_count")
     
     # don't need to fit, so don't overwrite _set_variables()
     
@@ -22,7 +22,8 @@ class HashtagCount(FeatureExtractor):
     def _get_values(self, inputs):
         
         hashtag_list = []
-   
+        
+        #count number of hashtags in each tweet
         for hashtag in inputs[0]:
             if hashtag == '[]':
                 hashtag_list.append(0)

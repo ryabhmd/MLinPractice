@@ -23,6 +23,7 @@ COLUMN_EMOJIS_INPUT = "tweet_no_hashtags_mentions_no_punctuation"
 COLUMN_TOKENIZE_INPUT = "tweet_no_hashtags_mentions_no_punctuation_emojis"
 COLUMN_STOPWORDS_INPUT = "tweet_no_hashtags_mentions_no_punctuation_emojis_tokenized"
 COLUMN_LEMMATIZE_INPUT = "tweet_no_hashtags_mentions_no_punctuation_emojis_tokenized_no_stopwords"
+LEMMATIZED = "tweet_no_hashtags_mentions_no_punctuation_emojis_tokenized_no_stopwords_lemmatized"
 
 # suffixes to add to columns after preprocessing
 SUFFIX_HASHTAGS_MENTIONS = "_no_hashtags_mentions"
@@ -33,5 +34,5 @@ SUFFIX_STOPWORDS = "_no_stopwords"
 SUFFIX_LEMMATIZED = "_lemmatized"
 
 # keywords for feature extraction
-LIST_PERSONAL_STORY_KEYWORDS = ['we','i','a few years ago','a few days ago', 'my', 'our']
-LIST_ENGAGEMENT_KEYWORDS = ['please','retweet','help','how to','check out']
+LIST_PERSONAL_STORY_KEYWORDS = ['we','i', 'my', 'our']
+LIST_ENGAGEMENT_KEYWORDS = ['please','retweet','tweet','how','check']

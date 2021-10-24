@@ -29,8 +29,10 @@ class PunctuationRemover(Preprocessor):
     def _get_values(self, inputs):
         # replace punctuation with empty string
         column = inputs[0].str.replace(self._punctuation, "")
-        # added the punctuation mark ± which doesn't exist in the list
+        # added the punctuation mark ± and ’ which don't exist in the list
         column = column.str.replace("±", "")
         # remove whitespaces
         column = [" ".join(sentence.split()) for sentence in column]
         return column
+    
+    

@@ -25,6 +25,7 @@ class Tokenizer(Preprocessor):
         
         tokenized = []
         
+        #loop over input tweets and tokenize them using nltk's word_tokenize function
         for tweet in inputs[0]:
             sentences = nltk.sent_tokenize(tweet)
             tokenized_tweet = []

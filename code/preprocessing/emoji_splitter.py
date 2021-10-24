@@ -16,7 +16,7 @@ class EmojiSplitter(Preprocessor):
     
     # constructor
     def __init__(self, input_col, output_col):
-        # input column "tweet_no_punctuation", new output column
+        # input column default "tweet_no_punctuation", new output column
         super().__init__([input_col], output_col)
         
     
