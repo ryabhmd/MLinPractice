@@ -129,26 +129,45 @@ When trying 11 features, we see that the accuracy does not change, neither do th
 
 Because this is our first time implementing a machine learning pipeline, we wanted to go with a classification algorithm that we both understand well enough, and that is relatively easy for us to work with. So, we chose to work with the K Nearest Neighbor option. 
 To find out what the best value of K is (i.e., the value that gives a relatively high accuracy and cohen's kappa scores), we used the implementation of the Cognitive Science intitute's grid network using the mlflow platform, as seen in the screenshot below, and in the scripts code/classification/classifier.sge and scripts code/classification/grid_search.sh: 
+
 <img src="https://github.com/ryabhmd/MLinPractice/blob/main/images/grid_screenshot.png" />
 
 The only parameter we decided to change and test the the value of K in the KNN algorithm. Since we decided to go with 10 features, it made sense to test K from values 1-10 to see which one outputs the best accuracy and Cohen's kappa scores for both training and validation sets. These were the results we got: 
+
 <img src="https://github.com/ryabhmd/MLinPractice/blob/main/images/mlflow_knn.png" />
 
 From these results, it looks like choosing K=6 would be the best option as it has the best balance of high accuracy and Cohen's kappa score in both training and validation sets.  
 
 Also, just to try it out, we did implement some more classification algorithms with basic parameters. This was only an experiment for us to try to see the different accuracy scores we might get, these are the results we got:
+
 <img src="https://github.com/ryabhmd/MLinPractice/blob/main/images/mlflow_different_classifiers.png" />
 
 We can see that the highest was the random forest classifier (at least in training set accuracy). 
 
 # Results and Interpretation
 
+Finally, with all the design decisions we took above (10 features, KNN classifier with K=6), we ran the classification on the test set: 
+We got the following resutls: 
+   
+              test set
+                6 nearest neighbor classifier
+                  accuracy: 0.9121748390041073
+                  Cohen_kappa: 0.11916745870959411
 
 
+To try to make sense of this, we decided to compare it to the 'always false' baseline, since we have imbalanced data with the following label distribution: 
+
+            False (not viral)    0.908185
+            True (viral)    0.091815
 
 
+This means that in an 'always false' baseline, where True Positive (TP) and False Positive (FP) classification results both equate to 0; and False Negative and True Negative classification results have a ratio of approximately 1:9, our baseline would be: 
+              
+              accuracy: 0.9
+              Cohen_kappa: 0
+              
 
-
-
-
-
+Therefore, we can interpret that our results are barely higher than the baseline, which means that the classifier did not perform as well as we have hoped. 
+We can, however, interpret this in many ways. We are aware that in some preprocessing steps we could have done a better job as we explained in the appropriate sections above, namely, in removing punctuation, filtering out unnecessary languages, a better lemmatization algorithm, etc. 
+Also, as we explained above, this is our first machine learning project, which is why we chose relatively simple dimensionality reduction and classification approaches. To improve our result, we could try to use a better dimensionality reduction approach, where we implement a grid search to find the optimal number of features, as well as try different classifiers with different parameters. 
+Given more time, we could have tried to improve this, but nonetheless we are satisfied with the work we did and learned a lot from it. 
