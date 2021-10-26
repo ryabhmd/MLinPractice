@@ -25,6 +25,11 @@ The following packages/lexicons were also used in our code:
 ```
 pip install emoji
 nltk.download('vader_lexicon')
+nltk.download('maxent_ne_chunker')
+nltk.download('words')
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('wordnet')
 ```
 
 You can double-check that all of these packages have been installed by running `conda list` inside of your virtual environment. The Spyder IDE can be started by typing `~/miniconda/envs/MLinPractice/bin/spyder` in your terminal window (assuming you use miniconda, which is installed right in your home directory).
@@ -63,15 +68,17 @@ The script `run_preprocessing.py` is used to run various preprocessing steps on 
 ```python -m code.preprocessing.run_preprocessing path/to/input.csv path/to/output.csv```
 Here, `input.csv` is a csv file (ideally the output of `create_labels.py`), while `output.csv` is the csv file where the output will be written.
 The preprocessing steps to take can be configured with the following flags:
-- `-p` or `--punctuation`: A new column "tweet_no_punctuation" is created, where all punctuation is removed from the original tweet. (See `code/preprocessing/punctuation_remover.py` for more details)
-- `-m` or `--emoji_splitter`: adds a space before and after each emoji in a tweet.
-- `--emoji_input`: determines the column name from a dataframe which should be used as input for splitting emojis. Default is 'tweet_no_punctuation'. install the package using 'pip install emoji'
-- `-t` or `--tokenize`: apply tokenization to text using nltk word tokenizer
-- `--tokenize_input`: determines the column name from a dataframe which should be used as input for tokenizing. Default is 'tweet_no_punctuation_emojis'.
-- `-s` or `--stopwprds`: remove stopwords using nltk common stop words of English
-- `--stopwords_input`: determines the column name from a dataframe which should be used as input for removal of stopwords. Default is 'tweet_no_punctuation_emojis_tokenized'. 
+- `--hashtags_mentions`: takes the column 'tweet' and removes hashtags and mentions from it along with their text, stores the result in a new column 'tweet_no_hashtags_mentions'.
+- `-p` or `--punctuation`: A new column 'tweet_no_hashtags_mentions_no_punctuation' is created, where all punctuation is removed from the original tweet. 
+- `--punctuation_input`: determine the column to remove punctuation from, default is 'tweet_no_hashtags_mentions'.
+- `-m` or `--emoji_splitter`: adds a space before and after each emoji in a tweet, returns a new column with the suffix '_emojis'. Installation of he package using 'pip install emoji' is needed to implement this. 
+- `--emoji_input`: determines the column name from a dataframe which should be used as input for splitting emojis, default is 'tweet_no_hashtags_mentions_no_punctuation'. 
+- `-t` or `--tokenize`: apply tokenization to text using nltk word tokenizer.
+- `--tokenize_input`: determines the column name from a dataframe which should be used as input for tokenizing, default is 'tweet_no_hashtags_mentions_no_punctuation_emojis'.
+- `-s` or `--stopwprds`: remove stopwords using nltk common stop words of English.
+- `--stopwords_input`: determines the column name from a dataframe which should be used as input for removal of stopwords. Default is 'tweet_no_hashtags_mentions_no_punctuation_emojis_tokenized'. 
 - `-l` or `--lemmatize`: lemmatize tokens using nltk's WordNet lemmatizer.
-- `--lemmatize_input`: determines the column name from a dataframe which should be used as input for lemmatization. Default is 'tweet_no_punctuation_emojis_tokenized_no_stopwords'. 
+- `--lemmatize_input`: determines the column name from a dataframe which should be used as input for lemmatization. Default is 'tweet_no_hashtags_mentions_no_punctuation_emojis_tokenized_no_stopwords'. 
 
 
 Moreover, the script accepts the following optional parameters:
@@ -100,15 +107,15 @@ Here, `input.csv` is the respective training, validation, or test set file creat
 - `"labels"`: a numpy array containing the target labels for the feature vectors (rows are training examples, only column is the label)
 
 The features to be extracted can be configured with the following optional parameters:
-- `-c` or `--char_length`: Count the number of characters in the "tweet" column of the data frame. (see code/feature_extraction/character_length.py)
+- `-c` or `--char_length`: Count the number of characters in the "tweet" column of the data frame. 
 - `-s` or `--sentiment_analysis`: Return the sentiment score of a tweet accoring to the compound score of nltk's Sentiment Analyzer; the score is on a range from -1 (very negative) to +1 (very positive). To use this run `nltk.download('vader_lexicon')` to download sentiment lexicon.
-- `-s` or `--sentiment_input`: select the input column from which to take the text for computing the sentiment analysis score. Default is 'tweet'.
+- `-s` or `--sentiment_input`: select the input column from which to take the text for computing the sentiment analysis score, default is 'tweet'.
 - `-u` or `--url_count`: Return the number of URLs found in each tweet.
-- `-m` or `--mentions_count`: Return the number of mentions found in each tweet.
+- `-m` or `--mention_count`: Return the number of mentions found in each tweet.
 - `--hashtag_count`: Return the number of hashtags found in each tweet.
-- `--personal_story`: Check whether each tweet includes one or more of the following keywords: I, We, My, Our, A few days ago, A few years ago.
-- `--engage_keywords`: Check whether each tweet includes one or more of the following keywords: please, retweet, help, how to, check out.
-- `-n` or `--ner_count`: Return the number of named entities (using NER) found in each tweet.
+- `--personal_story`: Check whether each tweet includes one or more of the following keywords: I, We, My, Our.
+- `--engage_keywords`: Check whether each tweet includes one or more of the following keywords: please, retweet, tweet, how, check.
+- `-n` or `--ner_count`: Return the number of named entities (using Named Entity Recognition from nltk) found in each tweet.
 - `--n_grams`: For each of the 30 most frequent bigrams in the data, return a value of `True` if it exists in a tweet and `False` otherwise.
 
 Moreover, the script support importing and exporting fitted feature extractors with the following optional arguments:
@@ -153,9 +160,13 @@ The classifier is then evaluated, using the evaluation metrics as specified thro
 - `-a` or `--accuracy`: Classification accurracy (i.e., percentage of correctly classified examples).
 - `-k` or `--kappa`: Cohen's Kappa evaluation (i.e, taking into account the possibility of the agreement occuring by chance).
 
-There are two additional optional arguments which can be used to produce a summary of evaluation metrics:
-- `-c` or `--classification`: prints out a report of the main classification metrics.
-- `-n` or `--confusion`: prints out the confusion matrix of the classifier.
+The following classifier can be used in this step, all taken from sklearn (see further documentation for each one there):
+- `--knn`: a K Nearest Neighbor classifier, take the value of K as input. 
+- `-r` or `--logistic_regression`: a Logistics Regression classifier, takes no parameters as input. 
+- `-t` ot `--decision_tree`: a Decision Tree classifier, takes no parameters as input. 
+- `--random_forest`: a Random Forest classifier, takes no parameters as input. 
+- `--svc`: an SVC classifier, takes no parameters as input. 
+- `--linear_svc`: a linear SVC classifier, takes no parameters as input.
 
 Moreover, the script support importing and exporting trained classifiers with the following optional arguments:
 - `-i` or `--import_file`: Load a trained classifier from the given pickle file. Ignore all parameters that configure the classifier to use and don't retrain the classifier.
@@ -173,6 +184,6 @@ The script can be invoked as follows:
 ```python -m code.application.application path/to/preprocessing.pickle path/to/feature_extraction.pickle path/to/dimensionality_reduction.pickle path/to/classifier.pickle```
 The four pickle files correspond to the exported versions for the different pipeline steps as created by `run_preprocessing.py`, `extract_features.py`, `reduce_dimensionality.py`, and `run_classifier.py`, respectively, with the `-e` option.
 
-## HappyBees
+## HappyBees🐝🐝
 
 
