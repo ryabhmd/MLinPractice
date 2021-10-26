@@ -33,9 +33,9 @@ parser.add_argument("--knn", type = int, help = "k nearest neighbor classifier w
 parser.add_argument("-n", "--naive_bayes", action = "store_true", help = "NaiveBayes classifier", default = None)
 parser.add_argument("-r", "--logistic_regression", action = "store_true", help = "logistic_regression classifier", default = None )
 parser.add_argument("-t", "--dicision_tree", action = "store_true", help = "dicision_tree classifier", default = None )
-parser.add_argument("-rf", "--random_forest", action = "store_true", help = "random_forest classifier", default = None )
-parser.add_argument("-svc", "--svc", action = "store_true", help = "svc classifier", default = None )
-parser.add_argument("-lsvc", "--linear_svc", action = "store_true", help = "linear_svc classifier", default = None )
+parser.add_argument("--random_forest", action = "store_true", help = "random_forest classifier", default = None )
+parser.add_argument("--svc", action = "store_true", help = "svc classifier", default = None )
+parser.add_argument("--linear_svc", action = "store_true", help = "linear_svc classifier", default = None )
 parser.add_argument("-a", "--accuracy", action = "store_true", help = "evaluate using accuracy")
 parser.add_argument("-k", "--kappa", action = "store_true", help = "evaluate using Cohen's kappa")
 parser.add_argument("--log_folder", help = "where to log the mlflow results", default = "data/classification/mlflow")
@@ -144,7 +144,8 @@ if args.accuracy:
     evaluation_metrics.append(("accuracy", accuracy_score))
 if args.kappa:
     evaluation_metrics.append(("Cohen_kappa", cohen_kappa_score))
-
+    
+    
 # compute and print them
 for metric_name, metric in evaluation_metrics:
     metric_value = metric(data["labels"], prediction)
