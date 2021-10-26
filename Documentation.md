@@ -46,10 +46,10 @@ Below, we will explain each step taken in preprocessing, and why it was done:
               
  1. 30 most frequent bigrams:             
 <img src="https://github.com/ryabhmd/MLinPractice/blob/main/images/30_freq_bigrams_with_hashtags.png" />
-
+       
  2. 30 most frequent trigrams:
  <img src="https://github.com/ryabhmd/MLinPractice/blob/main/images/30_freq_trigrams_with_hashtags.png" />
-              
+     
 We see that the most frequent n-grams include many lemmas that seem to be hashtags (e.g., 'machinelearning', 'datascience', etc.). Since these have a very high frequency, considering the topics of our tweets, we have decided to remove them (hence the hashtags and mentions remover as first step above).
 In addition, we see that 'data science', 'data analysis' and 'data visualization' are at the top of the two lists; which makes sense since these are the keywords the data was extracted by. So, we decided to edit the code to not keep those n-grams in. 
 
@@ -57,9 +57,10 @@ After removing hashtag and mention texts, and removing the aforementioned keywor
 
  1. 30 most frequent bigrams:             
 <img src="https://github.com/ryabhmd/MLinPractice/blob/main/images/30_freq_bigrams_updated.png" />
-
+               
  2. 30 most frequent trigrams:
  <img src="https://github.com/ryabhmd/MLinPractice/blob/main/images/30_freq_trigrams_updated.png" />
+
               
 We can see that the data is still messy, as it still contains some noise; some of the things we noticed that could be further cleaned are removing words in Spanish, removing the lemma 'amp' (which is a leftover from encoding the symbol &), and using a better punctuation and stop words remover (as we still see remnants of those). Because of time constraints, we could not get to that, but we do believe these things would have given us a better result. 
 From the results presented above, it seems to us that using bigrams will be more informative, as it includes more English collocations that we think might affect virality (data scientisit, big data, machine learning, etc.) as these are all current 'buzz words'.
@@ -111,7 +112,7 @@ From all Feature Selection approaches, we found the Filter method to be the best
 Selecting number of features: we tried to do this as simple as possible, only by looking at different accuracy scores and mutual information scores, taking into account a different number of features each time. 
 We monitored this simply by running the pipeline several times and checking whether there are significant changes each time we change the number of features. We started with 8 features, and saw that the results got better by getting to 10 features (accuracy scores did not change much, but MI scores were in general higher). Also, the features that were picked as the 10 best ones made sense to us; these were:
 
-              ['tweet_charlength', 'tweet_sentiment_score', 'urls_count', 'mentions_count', 'hashtags_count', 'tweet_personal_story', ('amp', 'data'),    ('visualization', 'tool'), ('computer', 'science'), ('how', 'data')]
+              ['tweet_charlength', 'tweet_sentiment_score', 'urls_count', 'mentions_count', 'hashtags_count', 'personal_story', 'engage_keywords', ('big', 'data'), ('we', '’'), ('open', 'data')]
 
 With the following scores: 
 
@@ -127,9 +128,18 @@ When trying 11 features, we see that the accuracy does not change, neither do th
 # Classification
 
 Because this is our first time implementing a machine learning pipeline, we wanted to go with a classification algorithm that we both understand well enough, and that is relatively easy for us to work with. So, we chose to work with the K Nearest Neighbor option. 
-To find out what the best value of K is (i.e., the value that gives a relatively high accuracy and cohen's kappa scores),
+To find out what the best value of K is (i.e., the value that gives a relatively high accuracy and cohen's kappa scores), we used the implementation of the Cognitive Science intitute's grid network using the mlflow platform, as seen in the screenshot below, and in the scripts code/classification/classifier.sge and scripts code/classification/grid_search.sh: 
+<img src="https://github.com/ryabhmd/MLinPractice/blob/main/images/grid_screenshot.png" />
 
-ADD EXPLANATION HERE
+The only parameter we decided to change and test the the value of K in the KNN algorithm. Since we decided to go with 10 features, it made sense to test K from values 1-10 to see which one outputs the best accuracy and Cohen's kappa scores for both training and validation sets. These were the results we got: 
+<img src="https://github.com/ryabhmd/MLinPractice/blob/main/images/mlflow_knn.png" />
+
+From these results, it looks like choosing K=6 would be the best option as it has the best balance of high accuracy and Cohen's kappa score in both training and validation sets.  
+
+Also, just to try it out, we did implement some more classification algorithms with basic parameters. This was only an experiment for us to try to see the different accuracy scores we might get, these are the results we got:
+<img src="https://github.com/ryabhmd/MLinPractice/blob/main/images/mlflow_different_classifiers.png" />
+
+We can see that the highest was the random forest classifier (at least in training set accuracy). 
 
 # Results and Interpretation
 
