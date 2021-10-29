@@ -171,3 +171,8 @@ Therefore, we can interpret that our results are barely higher than the baseline
 We can, however, interpret this in many ways. We are aware that in some preprocessing steps we could have done a better job as we explained in the appropriate sections above, namely, in removing punctuation, filtering out unnecessary languages, a better lemmatization algorithm, etc. 
 Also, as we explained above, this is our first machine learning project, which is why we chose relatively simple dimensionality reduction and classification approaches. To improve our result, we could try to use a better dimensionality reduction approach, where we implement a grid search to find the optimal number of features, as well as try different classifiers with different parameters. 
 Given more time, we could have tried to improve this, but nonetheless we are satisfied with the work we did and learned a lot from it. 
+
+# Application
+
+The final step we did was modify the ``application.py`` file; where we added three additional functions to extract mentions, hashtags, and URLs.
+These are then given to a DataFrame with the tweet that the user inserted. The DataFrame is then given to our pipleine, which outputs a prediction of how viral the inserted tweet will be. 
