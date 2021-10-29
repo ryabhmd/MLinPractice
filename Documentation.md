@@ -102,7 +102,7 @@ The SentimentIntensityAnalyzer was built and trained on social media posts; so g
 
 # Unit Tests
 
-We implemented unit tests for each step of preprocessing and feature extraction. They can all be tested automatically by running ``test/run_unittests.sh``.
+We implemented unit tests for each step of preprocessing and feature extraction. They can all be tested automatically by running ``run_unittests.sh``.
 # Dimensionality Reduction
 
 **Curse Of Dimensionality**:
