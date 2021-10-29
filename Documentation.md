@@ -100,6 +100,9 @@ The SentimentIntensityAnalyzer was built and trained on social media posts; so g
 
 - ``contains freqeunt n-grams``: As explained in the n-grams preprocessing step above, we chose to convert the 30 most frequent bigrams to binary features, where for each tweet 'True' appears if the bigram exists in the tweet and 'False' appears otherwise.
 
+# Unit Tests
+
+We implemented unit tests for each step of preprocessing and feature extraction. They can all be tested automatically by running ``test/run_unittests.sh``.
 # Dimensionality Reduction
 
 **Curse Of Dimensionality**:
