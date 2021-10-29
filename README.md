@@ -1,5 +1,6 @@
 # ML in Practice
 Source code for the Seminar "Machine Learning in Practice", taught at Osnabrück University in the winter term 2021/2022.
+Group Members: Raia Abu Ahmad, Thawab Alkhiami.
 
 As data source, we use the "Data Science Tweets 2010-2021" data set (version 3) by Ruchi Bhatia from [Kaggle](https://www.kaggle.com/ruchi798/data-science-tweets). The goal of our example project is to predict which tweets will go viral, i.e., receive many likes and retweets.
 
@@ -160,7 +161,7 @@ The classifier is then evaluated, using the evaluation metrics as specified thro
 - `-a` or `--accuracy`: Classification accurracy (i.e., percentage of correctly classified examples).
 - `-k` or `--kappa`: Cohen's Kappa evaluation (i.e, taking into account the possibility of the agreement occuring by chance).
 
-The following classifier can be used in this step, all taken from sklearn (see further documentation for each one there):
+The following classifiers can be used in this step, all taken from sklearn (see further documentation for each one there):
 - `--knn`: a K Nearest Neighbor classifier, take the value of K as input. 
 - `-r` or `--logistic_regression`: a Logistics Regression classifier, takes no parameters as input. 
 - `-t` ot `--decision_tree`: a Decision Tree classifier, takes no parameters as input. 

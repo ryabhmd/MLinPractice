@@ -98,8 +98,11 @@ The SentimentIntensityAnalyzer was built and trained on social media posts; so g
 
 - ``named entities count``: Count the number of named entities in each tweets. From looking over the tweets labeled as viral; we saw that a common pattern they had was the inclusion of some famous entities (Company names, Person names, etc.), so we decided to add the number of named entities of each tweet as a feature. We used nltk for extracting this information.
 
-- ``contains freqeunt n-grams``: As explained the n-grams preprocessing step above, we chose to convert the 30 most frequent n-grams to binary features, where for each tweet 'True' appears if the n-gram exists in the tweet and 'False' appears otherwise.
+- ``contains freqeunt n-grams``: As explained in the n-grams preprocessing step above, we chose to convert the 30 most frequent bigrams to binary features, where for each tweet 'True' appears if the bigram exists in the tweet and 'False' appears otherwise.
 
+# Unit Tests
+
+We implemented unit tests for each step of preprocessing and feature extraction. They can all be tested automatically by running ``run_unittests.sh``.
 # Dimensionality Reduction
 
 **Curse Of Dimensionality**:
@@ -114,7 +117,7 @@ We monitored this simply by running the pipeline several times and checking whet
 
               ['tweet_charlength', 'tweet_sentiment_score', 'urls_count', 'mentions_count', 'hashtags_count', 'personal_story', 'engage_keywords', ('big', 'data'), ('we', '’'), ('open', 'data')]
 
-With the following scores: 
+With the following scores (training on KNN with K=7): 
 
                   training set
                     accuracy: 0.911981790113023
@@ -128,7 +131,7 @@ When trying 11 features, we see that the accuracy does not change, neither do th
 # Classification
 
 Because this is our first time implementing a machine learning pipeline, we wanted to go with a classification algorithm that we both understand well enough, and that is relatively easy for us to work with. So, we chose to work with the K Nearest Neighbor option. 
-To find out what the best value of K is (i.e., the value that gives a relatively high accuracy and cohen's kappa scores), we used the implementation of the Cognitive Science intitute's grid network using the mlflow platform, as seen in the screenshot below, and in the scripts code/classification/classifier.sge and scripts code/classification/grid_search.sh: 
+To find out what the best value of K is (i.e., the value that gives a relatively high accuracy and cohen's kappa scores), we used the implementation of the Cognitive Science Institute's grid network using the mlflow platform, as seen in the screenshot below, and in the scripts ``code/classification/classifier.sge`` and  ``code/classification/grid_search.sh``: 
 
 <img src="https://github.com/ryabhmd/MLinPractice/blob/main/images/grid_screenshot.png" />
 
@@ -171,3 +174,8 @@ Therefore, we can interpret that our results are barely higher than the baseline
 We can, however, interpret this in many ways. We are aware that in some preprocessing steps we could have done a better job as we explained in the appropriate sections above, namely, in removing punctuation, filtering out unnecessary languages, a better lemmatization algorithm, etc. 
 Also, as we explained above, this is our first machine learning project, which is why we chose relatively simple dimensionality reduction and classification approaches. To improve our result, we could try to use a better dimensionality reduction approach, where we implement a grid search to find the optimal number of features, as well as try different classifiers with different parameters. 
 Given more time, we could have tried to improve this, but nonetheless we are satisfied with the work we did and learned a lot from it. 
+
+# Application
+
+The final step we did was modify the ``application.py`` file; where we added three additional functions to extract mentions, hashtags, and URLs.
+These are then given to a DataFrame with the tweet that the user inserted. The DataFrame is then given to our pipleine, which outputs a prediction of how viral the inserted tweet will be. 
