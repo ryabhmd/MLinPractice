@@ -28,7 +28,13 @@ class EngageKeyword(FeatureExtractor):
         #loop over each twwet in input and check if one of its lemmas exist in the keywords list
         for tweet in inputs[0]:
             has_engage_keywords = False
-            tweet_list = ast.literal_eval(tweet)
+            
+            #added try + except, in case there is only one tweet (when using application.py)
+            try:
+                tweet_list = ast.literal_eval(tweet)
+            except:
+                tweet_list = tweet
+                
             for lemma in tweet_list:
                 if lemma in LIST_ENGAGEMENT_KEYWORDS:
                     has_engage_keywords = True

@@ -24,11 +24,11 @@ class NERCountTest(unittest.TestCase):
    
     def test_basic_sentence(self):
         
-        input_text = ["NASA", "awarded", "Elon", "Musk", "a", "$", "2 .9", "billion", "contract", "to", "build", "the", "lunar", "lander"]
-        output_count = 2
+        input_text = ["NASA", "awarded", "Elon", "a", "$", "2 .9", "billion", "contract", "to", "build", "the", "lunar", "lander"]
+        output_count = 1
         
         input_df = pd.DataFrame()
-        input_df[self.INPUT_COLUMN] = [input_text]
+        input_df[self.INPUT_COLUMN] = input_text
         
         result = self.ner_counter.fit_transform(input_df)
         self.assertEqual(result[0], output_count)

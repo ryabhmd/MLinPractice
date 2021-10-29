@@ -28,9 +28,9 @@ class PunctuationRemover(Preprocessor):
     # get preprocessed column based on data frame and internal variables
     def _get_values(self, inputs):
         # replace punctuation with empty string
-        column = inputs[0].str.replace(self._punctuation, "")
+        column = inputs[0].replace(self._punctuation, "")
         # added the punctuation mark ± and ’ which don't exist in the list
-        column = column.str.replace("±", "")
+        column = column.replace("±", "")
         # remove whitespaces
         column = [" ".join(sentence.split()) for sentence in column]
         return column

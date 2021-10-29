@@ -28,7 +28,13 @@ class PersonalStory(FeatureExtractor):
         #loop over each tweet and see if one of its lemmas is included in the keywords list 
         for tweet in inputs[0]:
             has_personal_story = False
-            tweet_list = ast.literal_eval(tweet)
+            
+            #added try + except, in case there is only one tweet (when using application.py)
+            try:
+                tweet_list = ast.literal_eval(tweet)
+            except:
+                tweet_list = tweet
+            
             for lemma in tweet_list:
                 if lemma in LIST_PERSONAL_STORY_KEYWORDS:
                     has_personal_story = True

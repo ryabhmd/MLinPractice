@@ -11,7 +11,8 @@ Created on Wed Sep 29 14:49:25 2021
 import argparse, pickle
 import pandas as pd
 from sklearn.pipeline import make_pipeline
-from code.util import COLUMN_TWEET
+from code.util import COLUMN_TWEET, COLUMN_URL, COLUMN_MENTION, COLUMN_HASHTAG
+import re
 
 # setting up CLI
 parser = argparse.ArgumentParser(description = "Application")
@@ -39,6 +40,34 @@ print("Welcome to ViralTweeter v0.1!")
 print("-----------------------------")
 print("")
 
+#function to extract all urls in a tweet in a list, and return it as string
+def get_urls_list(tweet):
+    
+    return str(re.findall(r"\w+://\w+\.\w+\.\w+/?[\w\.\?=#]*", tweet))
+
+#function to extract all hashtags in a tweet in a list, and return it as string
+def get_hashtags_list(tweet):
+    
+    return str(re.findall(r"#(\w+)", tweet))
+       
+#function to extract all mentions in a tweet in a list, and return it as string 
+def get_mentions_list(tweet):
+    
+    screen_names = re.findall(r"@(\w+)", tweet)
+    mentions = []
+    
+    #make a dictionary in the same structure as the dataset we have
+    for mention in screen_names:
+        mention_dict = {
+            'screen_name': mention,
+            'name' : 'user',
+            'id': 'id'
+            }
+        mentions.append(mention_dict)
+        
+    return str(mentions)
+        
+
 while True:
     # ask user for input
     tweet = input("Please type in your tweet (type 'quit' to quit the program): ")
@@ -48,9 +77,17 @@ while True:
         print("Okay, goodbye!")
         break
     
+    urls = get_urls_list(tweet)
+    hashtags = get_hashtags_list(tweet)
+    mentions = get_mentions_list(tweet)
+    
     # if not terminated: create pandas DataFrame and put it through the pipeline
     df = pd.DataFrame()
     df[COLUMN_TWEET] = [tweet]
+    df[COLUMN_URL] = [urls]
+    df[COLUMN_MENTION] = [mentions]
+    df[COLUMN_HASHTAG] = [hashtags]
+    
     
     prediction = pipeline.predict(df)
     confidence = pipeline.predict_proba(df)
