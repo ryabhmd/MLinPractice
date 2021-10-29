@@ -98,7 +98,7 @@ The SentimentIntensityAnalyzer was built and trained on social media posts; so g
 
 - ``named entities count``: Count the number of named entities in each tweets. From looking over the tweets labeled as viral; we saw that a common pattern they had was the inclusion of some famous entities (Company names, Person names, etc.), so we decided to add the number of named entities of each tweet as a feature. We used nltk for extracting this information.
 
-- ``contains freqeunt n-grams``: As explained the n-grams preprocessing step above, we chose to convert the 30 most frequent n-grams to binary features, where for each tweet 'True' appears if the n-gram exists in the tweet and 'False' appears otherwise.
+- ``contains freqeunt n-grams``: As explained in the n-grams preprocessing step above, we chose to convert the 30 most frequent bigrams to binary features, where for each tweet 'True' appears if the bigram exists in the tweet and 'False' appears otherwise.
 
 # Dimensionality Reduction
 
@@ -114,7 +114,7 @@ We monitored this simply by running the pipeline several times and checking whet
 
               ['tweet_charlength', 'tweet_sentiment_score', 'urls_count', 'mentions_count', 'hashtags_count', 'personal_story', 'engage_keywords', ('big', 'data'), ('we', '’'), ('open', 'data')]
 
-With the following scores: 
+With the following scores (training on KNN with K=7): 
 
                   training set
                     accuracy: 0.911981790113023
@@ -128,7 +128,7 @@ When trying 11 features, we see that the accuracy does not change, neither do th
 # Classification
 
 Because this is our first time implementing a machine learning pipeline, we wanted to go with a classification algorithm that we both understand well enough, and that is relatively easy for us to work with. So, we chose to work with the K Nearest Neighbor option. 
-To find out what the best value of K is (i.e., the value that gives a relatively high accuracy and cohen's kappa scores), we used the implementation of the Cognitive Science intitute's grid network using the mlflow platform, as seen in the screenshot below, and in the scripts code/classification/classifier.sge and scripts code/classification/grid_search.sh: 
+To find out what the best value of K is (i.e., the value that gives a relatively high accuracy and cohen's kappa scores), we used the implementation of the Cognitive Science Institute's grid network using the mlflow platform, as seen in the screenshot below, and in the scripts ``code/classification/classifier.sge`` and  ``code/classification/grid_search.sh``: 
 
 <img src="https://github.com/ryabhmd/MLinPractice/blob/main/images/grid_screenshot.png" />
 
